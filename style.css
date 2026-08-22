@@ -613,10 +613,27 @@ p.lead-text {
   margin: 0 auto;
   color: #ffffff;
   text-align: center;
+  position: relative;
+  z-index: 12;
 }
 
 .hero-content-layer h1 {
   color: #ffffff;
+  overflow: visible;
+}
+
+.hero-title-line-1,
+.hero-title-line-2 {
+  display: inline-block;
+  will-change: transform, opacity;
+  transition: transform 0.1s linear, opacity 0.1s linear;
+}
+
+#hero-badge,
+#hero-lead-text,
+#hero-cta-cluster {
+  will-change: transform, opacity;
+  transition: transform 0.15s ease-out, opacity 0.15s ease-out;
 }
 
 .hero-content-layer p {
@@ -635,15 +652,16 @@ p.lead-text {
 /* Expanding Media Card */
 .scroll-expand-card {
   position: relative;
-  width: clamp(320px, 62vw, 1100px);
-  height: clamp(380px, 52vh, 580px);
+  width: clamp(300px, 58vw, 1150px);
+  height: clamp(340px, 48vh, 560px);
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(197, 160, 89, 0.35);
-  transition: transform 0.2s ease, width 0.2s ease, height 0.2s ease;
   background: #000000;
-  margin: 32px 0 24px 0;
+  margin: 32px auto 24px auto;
+  will-change: transform, width, height;
+  transition: width 0.1s linear, height 0.1s linear, transform 0.1s linear;
 }
 
 .scroll-expand-card img {
@@ -651,18 +669,21 @@ p.lead-text {
   height: 100%;
   object-fit: cover;
   display: block;
+  will-change: transform;
+  transition: transform 0.2s ease-out;
 }
 
 .expand-card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(4, 13, 26, 0.05) 0%, rgba(4, 13, 26, 0.8) 100%);
+  background: linear-gradient(180deg, rgba(4, 13, 26, 0.1) 0%, rgba(4, 13, 26, 0.8) 100%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding: 32px;
   color: #ffffff;
   text-align: left;
+  transition: background 0.2s ease-out;
 }
 
 .expand-tag {
@@ -678,6 +699,11 @@ p.lead-text {
   font-size: 1.6rem;
   font-weight: 700;
   color: #ffffff;
+}
+
+#hero-metrics-strip {
+  will-change: transform, opacity;
+  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
 }
 
 /* Metric Strip (3-Item Clean Grid without 1-on-1 Block) */
