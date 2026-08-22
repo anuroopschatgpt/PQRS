@@ -144,35 +144,126 @@ const MODULE_DATA = {
 };
 
 // ==========================================================================
-// 2. SCROLL-EXPANSION HERO ANIMATION
+// 2. SCROLL-EXPANSION HERO ANIMATION (Full React Component Parity)
 // ==========================================================================
 function initScrollExpansionHero() {
   const card = document.getElementById("scroll-expand-card");
   const bgLayer = document.getElementById("hero-bg-layer");
+  const line1 = document.getElementById("hero-title-line-1");
+  const line2 = document.getElementById("hero-title-line-2");
+  const badge = document.getElementById("hero-badge");
+  const leadText = document.getElementById("hero-lead-text");
+  const ctaCluster = document.getElementById("hero-cta-cluster");
+  const expandImg = document.getElementById("hero-expand-img");
+  const expandOverlay = document.getElementById("hero-expand-overlay");
+  const metricsStrip = document.getElementById("hero-metrics-strip");
+
   if (!card) return;
 
-  window.addEventListener("scroll", () => {
-    const scrollY = window.scrollY;
-    const maxScroll = 450;
-    const progress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
+  let scrollProgress = 0;
+  let targetProgress = 0;
+  let animationFrameId = null;
 
+  function renderProgress(progress) {
     const isMobile = window.innerWidth < 768;
+    
+    // Width & Height expansion (from compact centered card to cinematic full width)
     const baseWidth = isMobile ? 280 : 340;
-    const expandWidth = isMobile ? 600 : 800;
+    const expandWidth = isMobile ? (window.innerWidth * 0.92 - baseWidth) : (Math.min(window.innerWidth * 0.88, 1150) - baseWidth);
     const baseHeight = isMobile ? 320 : 380;
-    const expandHeight = isMobile ? 120 : 180;
+    const expandHeight = isMobile ? 180 : 240;
 
-    const currentWidth = baseWidth + progress * expandWidth;
-    const currentHeight = baseHeight + progress * expandHeight;
+    const currentWidth = Math.min(baseWidth + progress * expandWidth, window.innerWidth * 0.95);
+    const currentHeight = Math.min(baseHeight + progress * expandHeight, window.innerHeight * 0.85);
 
     card.style.width = `${currentWidth}px`;
     card.style.height = `${currentHeight}px`;
-    card.style.transform = `scale(${1 + progress * 0.04})`;
+    card.style.transform = `scale(${1 + progress * 0.03})`;
 
-    if (bgLayer) {
-      bgLayer.style.opacity = `${0.38 - progress * 0.15}`;
+    // Image zoom inside the card
+    if (expandImg) {
+      expandImg.style.transform = `scale(${1 + progress * 0.08})`;
     }
+
+    // Overlay brightness/dimming
+    if (expandOverlay) {
+      expandOverlay.style.background = `linear-gradient(180deg, rgba(4, 13, 26, ${0.1 + (1 - progress) * 0.2}) 0%, rgba(4, 13, 26, ${0.85 - progress * 0.35}) 100%)`;
+    }
+
+    // Sideways Horizontal Text Split Animation (from original component)
+    const textTranslateX = progress * (isMobile ? 120 : 85); // in vw
+    const textOpacity = Math.max(1 - progress * 1.5, 0);
+
+    if (line1) {
+      line1.style.transform = `translateX(-${textTranslateX}vw)`;
+      line1.style.opacity = textOpacity;
+    }
+
+    if (line2) {
+      line2.style.transform = `translateX(${textTranslateX}vw)`;
+      line2.style.opacity = textOpacity;
+    }
+
+    // Badge, Subtitle & Buttons Fade
+    const uiOpacity = Math.max(1 - progress * 1.8, 0);
+    const uiTranslateY = -progress * 25; // px upward
+
+    if (badge) {
+      badge.style.opacity = uiOpacity;
+      badge.style.transform = `translateY(${uiTranslateY}px)`;
+    }
+    if (leadText) {
+      leadText.style.opacity = uiOpacity;
+      leadText.style.transform = `translateY(${uiTranslateY}px)`;
+    }
+    if (ctaCluster) {
+      ctaCluster.style.opacity = uiOpacity;
+      ctaCluster.style.transform = `translateY(${uiTranslateY}px)`;
+    }
+
+    // Ambient background fade
+    if (bgLayer) {
+      bgLayer.style.opacity = `${0.36 * (1 - progress * 0.65)}`;
+    }
+
+    // Metrics Strip smooth reveal
+    if (metricsStrip) {
+      metricsStrip.style.opacity = progress > 0.3 ? `${(progress - 0.3) / 0.7}` : "0.1";
+      metricsStrip.style.transform = `translateY(${(1 - progress) * 16}px)`;
+    }
+  }
+
+  // Smooth animation frame loop
+  function updateProgressSmoothly() {
+    const diff = targetProgress - scrollProgress;
+    if (Math.abs(diff) > 0.001) {
+      scrollProgress += diff * 0.2; // smooth interpolation
+      renderProgress(scrollProgress);
+      animationFrameId = requestAnimationFrame(updateProgressSmoothly);
+    } else {
+      scrollProgress = targetProgress;
+      renderProgress(scrollProgress);
+      animationFrameId = null;
+    }
+  }
+
+  function setTarget(val) {
+    targetProgress = Math.min(Math.max(val, 0), 1);
+    if (!animationFrameId) {
+      animationFrameId = requestAnimationFrame(updateProgressSmoothly);
+    }
+  }
+
+  // Sync with window scroll
+  window.addEventListener("scroll", () => {
+    const scrollY = window.scrollY;
+    const maxScroll = Math.max(window.innerHeight * 0.6, 420);
+    const progress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
+    setTarget(progress);
   }, { passive: true });
+
+  // Initial render
+  renderProgress(0);
 }
 
 // ==========================================================================
