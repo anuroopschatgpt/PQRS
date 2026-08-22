@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PQRS — Prajna Quest Research Solutions | Complete PhD Research Support</title>
+  <meta name="description" content="Prajna Quest Research Solutions (PQRS) provides expert doctoral consulting, statistical data analysis, thesis writing guidance, and publication support for research scholars.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/logo.jpg" type="image/jpeg">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       NAVIGATION BAR (PQRS on Top, Prajna Quest on Bottom, Clean Nav Hub)
+       ========================================================================== -->
+  <header class="pqrs-navbar" id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        
+        <!-- Brand Identity: PQRS on Top, Full Name on Bottom -->
+        <a href="#hero" class="brand-wrapper">
+          <img src="assets/logo.jpg" alt="PQRS Official Logo" class="brand-logo-img">
+          <div class="brand-text-col">
+            <span class="brand-title">PQRS</span>
+            <span class="brand-fullname">Prajna Quest Research Solutions</span>
+          </div>
+        </a>
+
+        <!-- Interactive Expandable Clubbed Navigation Hub (Clean Typography, No Icons) -->
+        <div class="nav-hub-wrapper" id="nav-hub-wrapper">
+          <button class="nav-hub-trigger" id="nav-hub-trigger" onclick="toggleNavHub()" aria-expanded="false">
+            <span>Explore Sections</span>
+            <span class="hub-chevron">▾</span>
+          </button>
+          
+          <!-- Clean Expandable Dropdown (No Icons) -->
+          <div class="nav-hub-dropdown" id="nav-hub-dropdown">
+            <a href="#cost-of-delay" class="hub-link-item" onclick="closeNavHub()">
+              <strong>The Cost of Delay</strong>
+              <span>Why waiting slows down your PhD</span>
+            </a>
+            <a href="#ecosystem" class="hub-link-item" onclick="closeNavHub()">
+              <strong>Under One Roof</strong>
+              <span>Unified doctoral ecosystem</span>
+            </a>
+            <a href="#services" class="hub-link-item" onclick="closeNavHub()">
+              <strong>12 Core Services</strong>
+              <span>Proposals, data, writing & publishing</span>
+            </a>
+            <a href="#process" class="hub-link-item" onclick="closeNavHub()">
+              <strong>3-Step Process</strong>
+              <span>Blueprint, drafting & defense</span>
+            </a>
+            <a href="#configurator" class="hub-link-item" onclick="closeNavHub()">
+              <strong>Plan Builder</strong>
+              <span>Build your custom roadmap</span>
+            </a>
+            <a href="#faq" class="hub-link-item" onclick="closeNavHub()">
+              <strong>FAQ</strong>
+              <span>Turnitin, privacy & timelines</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- CTA Action Group -->
+        <div class="nav-cta-group">
+          <a href="#configurator" class="btn btn-outline">Build Plan</a>
+          <a href="https://wa.me/917799956799?text=Hi%20PQRS%2C%20I%20need%20help%20with%20my%20research%20work.%20Please%20share%20details." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-compact" title="Chat on WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.24-.75-.67-1.26-1.5-1.41-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.22.89 2.41 1.02 2.58.13.17 1.76 2.68 4.25 3.76.59.26 1.05.41 1.41.53.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.12-.22-.19-.47-.31z"/></svg>
+            <span>WhatsApp</span>
+          </a>
+
+          <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu" onclick="toggleMobileNav()">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+      <ul class="mobile-nav-links">
+        <li><a href="#cost-of-delay" onclick="closeMobileNav()">The Cost of Delay</a></li>
+        <li><a href="#ecosystem" onclick="closeMobileNav()">Under One Roof</a></li>
+        <li><a href="#services" onclick="closeMobileNav()">12 Services</a></li>
+        <li><a href="#process" onclick="closeMobileNav()">3-Step Process</a></li>
+        <li><a href="#configurator" onclick="closeMobileNav()">Plan Builder</a></li>
+        <li><a href="#faq" onclick="closeMobileNav()">FAQ</a></li>
+      </ul>
+      <div style="margin-top: 24px;">
+        <a href="https://wa.me/917799956799?text=Hi%20PQRS%2C%20I%20need%20help%20with%20my%20research%20work.%20Please%20share%20details." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-compact" style="width: 100%; padding: 12px 18px; font-size: 0.95rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.24-.75-.67-1.26-1.5-1.41-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.22.89 2.41 1.02 2.58.13.17 1.76 2.68 4.25 3.76.59.26 1.05.41 1.41.53.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.12-.22-.19-.47-.31z"/></svg>
+          <span>Chat on WhatsApp (+91 7799956799)</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       SECTION 1: HERO EXPERIENCE (2-Line Headline & 3-Item Metrics Strip)
+       ========================================================================== -->
+  <section class="scroll-hero-container" id="hero">
+    <!-- Atmospheric Ambient Background Layer -->
+    <img src="assets/scroll_bg.jpg" alt="University Research Library Background" class="hero-bg-layer" id="hero-bg-layer">
+    <div class="hero-bg-overlay"></div>
+
+    <div class="hero-interactive-stage">
+      
+      <div class="hero-content-layer">
+        <span class="tag-badge tag-dark">✨ Expert PhD & Research Consulting</span>
+        
+        <!-- 2-Line Headline -->
+        <h1 class="text-editorial-hero">
+          <span>Struggling with your <span class="hero-headline-accent">PhD Thesis?</span></span><br>
+          <span>We'll help you finish it <span class="hero-headline-accent-gold">with confidence.</span></span>
+        </h1>
+
+        <p class="lead-text" style="color: var(--text-light-secondary); max-width: 720px; margin: 0 auto 28px auto;">
+          Expert research assistance for PhD scholars, researchers, and postgraduate students. From topic selection to final submission — get well-structured chapters, clear data analysis, and guaranteed plagiarism-free work.
+        </p>
+
+        <div class="hero-cta-cluster">
+          <a href="#configurator" class="btn btn-liquid-metal">Build Your Plan →</a>
+          <a href="https://wa.me/917799956799?text=Hi%20PQRS%2C%20I%20need%20help%20with%20my%20research%20work.%20Please%20share%20details." target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-compact">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.24-.75-.67-1.26-1.5-1.41-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.22.89 2.41 1.02 2.58.13.17 1.76 2.68 4.25 3.76.59.26 1.05.41 1.41.53.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.12-.22-.19-.47-.31z"/></svg>
+            <span>Consult on WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Main Expanding Media Card -->
+      <div class="scroll-expand-card" id="scroll-expand-card">
+        <img src="assets/hero_scholar.jpg" alt="Doctoral Scholar at University Research Desk">
+        <div class="expand-card-overlay">
+          <span class="expand-tag">100% Originality & Verified Quality</span>
+          <h3 class="expand-title">Personalized 1-on-1 Guidance for Every Milestone</h3>
+        </div>
+      </div>
+
+      <!-- Metric Strip (3 Clean Blocks, Removed 1-on-1 Mentors Block) -->
+      <div class="metrics-strip">
+        <div class="metric-card">
+          <div class="metric-number">100<span>%</span></div>
+          <div class="metric-label">Original & Verified Work</div>
+          <div class="metric-desc">Turnitin similarity reports with complete authenticity.</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-number">12</div>
+          <div class="metric-label">Complete Support Modules</div>
+          <div class="metric-desc">From initial topic discovery to final viva defense preparation.</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-number">100<span>%</span></div>
+          <div class="metric-label">Privacy Guaranteed</div>
+          <div class="metric-desc">Your research data and personal details stay completely safe.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 2: THE COST OF DELAY (Compact Height, Wide Horizontal Cards, No Icons)
+       ========================================================================== -->
+  <section class="section-padding agitation-section" id="cost-of-delay">
+    <div class="container">
+      
+      <div style="text-align: center; max-width: 840px; margin: 0 auto;">
+        <span class="tag-badge">🔥 The Cost of Delay</span>
+        <h2 class="text-section-title" style="color: #08162b;">Every Month You Delay Is a Month You'll Never Get Back</h2>
+        <p class="text-section-subtitle" style="margin-left: auto; margin-right: auto; color: #475569;">
+          The consequences of struggling alone with your research aren't just academic — they're deeply personal. Here's what's really at stake.
+        </p>
+      </div>
+
+      <div class="agitation-cards-grid">
+        
+        <!-- Card 1: Crimson Warm Tint (Career Stagnation & Delayed Growth) -->
+        <div class="agitation-card-item agitation-card-1">
+          <div class="agitation-card-img-wrap">
+            <img src="assets/cost_career.jpg" alt="Career Stagnation and Research Delay" class="agitation-card-img">
+          </div>
+          <div class="agitation-num">01</div>
+          <h4 class="agitation-title">Career Stagnation & Delayed Growth</h4>
+          <p class="agitation-text">
+            Every semester your thesis remains incomplete, professional opportunities and academic appointments are delayed. Completing your degree on a structured timeline protects your career trajectory.
+          </p>
+        </div>
+
+        <!-- Card 2: Purple Royal Tint (Mental Exhaustion & Personal Toll) -->
+        <div class="agitation-card-item agitation-card-2">
+          <div class="agitation-card-img-wrap">
+            <img src="assets/cost_exhaustion.jpg" alt="Doctoral Scholar Late-Night Research Overwhelmed" class="agitation-card-img">
+          </div>
+          <div class="agitation-num">02</div>
+          <h4 class="agitation-title">Mental Exhaustion & Personal Toll</h4>
+          <p class="agitation-text">
+            The isolation of solitary research and constant questions from family take a heavy mental toll. Breaking your journey into guided, predictable milestones restores your clarity and peace of mind.
+          </p>
+        </div>
+
+        <!-- Card 3: Amber Luxury Tint (Cumulative Time & Opportunity Cost) -->
+        <div class="agitation-card-item agitation-card-3">
+          <div class="agitation-card-img-wrap">
+            <img src="assets/cost_time.jpg" alt="Statistical Data and Research Timeline Cost" class="agitation-card-img">
+          </div>
+          <div class="agitation-num">03</div>
+          <h4 class="agitation-title">Cumulative Time & Opportunity Cost</h4>
+          <p class="agitation-text">
+            You've invested years of hard work, tuition fees, and living expenses into your research. Every extra semester adds avoidable costs and delays your post-doctoral earning stage.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 3: UNDER ONE ROOF ECOSYSTEM (Dark Luxury Aesthetic)
+       ========================================================================== -->
+  <section class="section-padding section-dark ecosystem-section" id="ecosystem">
+    <div class="container">
+      
+      <div class="ecosystem-grid">
+        <div class="ecosystem-left">
+          <span class="tag-badge tag-dark">📋 Complete Research Ecosystem</span>
+          <h2 class="text-section-title" style="color: #ffffff;">Everything You Need to Finish Your Research — Under One Roof</h2>
+          <p class="text-section-subtitle" style="color: var(--text-light-secondary);">
+            From the first spark of your research idea to holding your bound degree in your hands — we provide comprehensive, end-to-end research support tailored to your specific university requirements.
+          </p>
+
+          <div class="ecosystem-points-list">
+            <div class="ecosystem-point">
+              <div class="ecosystem-point-icon">✓</div>
+              <div class="ecosystem-point-content">
+                <h5>Integrated Academic Support</h5>
+                <p>No need to coordinate between multiple freelancers. Topic selection, data modeling, chapter writing, and publication readiness work in harmony.</p>
+              </div>
+            </div>
+
+            <div class="ecosystem-point">
+              <div class="ecosystem-point-icon">✓</div>
+              <div class="ecosystem-point-content">
+                <h5>Field-Specific Mentorship</h5>
+                <p>Direct guidance from researchers who understand the exact methodologies and literature standards of your specific discipline.</p>
+              </div>
+            </div>
+
+            <div class="ecosystem-point">
+              <div class="ecosystem-point-icon">✓</div>
+              <div class="ecosystem-point-content">
+                <h5>Iterative Feedback Alignment</h5>
+                <p>We deliver your thesis progressively chapter-by-chapter, incorporating your supervisor's remarks at every stage of the journey.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 32px;">
+            <a href="#services" class="btn btn-gold">Explore All 12 Services →</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="ecosystem-card">
+            <h3 style="font-size: 1.5rem; color: #ffffff; margin-bottom: 12px;">Unified Academic Workflow</h3>
+            <p style="color: var(--text-light-secondary); font-size: 0.9rem; line-height: 1.55; margin-bottom: 20px;">
+              Our structured approach brings together domain specialists, statisticians, academic writers, and formatting editors so you always have direct support.
+            </p>
+
+            <div style="border-radius: 16px; overflow: hidden; border: 1px solid var(--navy-border); margin-bottom: 20px;">
+              <img src="assets/academic_mentorship.jpg" alt="Mentorship Session" style="width: 100%; height: 200px; object-fit: cover; display: block;">
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 18px 20px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.08);">
+              <div style="font-size: 0.85rem; color: var(--gold-light); font-weight: 700; text-transform: uppercase; margin-bottom: 4px;">Guaranteed Standard</div>
+              <div style="font-size: 0.92rem; color: #ffffff;">100% University Guidelines Compliance & Turnitin-Checked Originality.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 4: 12 CORE SERVICES (Coloured Cards Without Icons)
+       ========================================================================== -->
+  <section class="section-padding section-warm" id="services">
+    <div class="container">
+      
+      <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+        <span class="tag-badge">Our Complete PhD Suite</span>
+        <h2 class="text-section-title" style="color: #08162b;">12 Ways We Support Your PhD</h2>
+        <p class="text-section-subtitle" style="margin-left: auto; margin-right: auto; color: #475569;">
+          Select specific modules or get end-to-end guidance from first draft to final degree.
+        </p>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="catalog-filter-bar">
+        <button class="filter-btn active" onclick="filterModules('all')">All 12 Services</button>
+        <button class="filter-btn" onclick="filterModules('topic')">Topic & Proposal</button>
+        <button class="filter-btn" onclick="filterModules('data')">Data & Statistics</button>
+        <button class="filter-btn" onclick="filterModules('writing')">Thesis Writing</button>
+        <button class="filter-btn" onclick="filterModules('publish')">Review & Publishing</button>
+      </div>
+
+      <!-- 12 Modules Grid without icons -->
+      <div class="modules-grid" id="modules-grid-container">
+
+        <!-- 01: Royal Purple Tint -->
+        <div class="module-card module-card-purple" data-category="topic" onclick="openModuleModal(1)">
+          <div>
+            <div class="module-header-row">
+              <span class="module-category-pill">Topic & Proposal</span>
+              <span class="module-num">01</span>
+            </div>
+            <h3 class="module-title">Topic Selection & Research Gap</h3>
+            <ul class="module-bullets">
+              <li>Discover original, approved topic ideas</li>
+              <li>Identify clear research gaps in literature</li>
+              <li>Ensure topic feasibility and university approval</li>
+            </ul>
+          </div>
+          <div class="module-footer-action">
+            <span class="module-link-text">Inspect Deliverables →</span>
+          </div>
+        </div>
+
+        <!-- 02: Royal Purple Tint -->
+        <div class="module-card module-card-purple" data-category="topic" onclick="openModuleModal(2)">
+          <div>
+            <div class="module-header-row">
+              <span class="module-category-pill">Topic & Proposal</span>
+              <span class="module-num">02</span>
+            </div>
+            <h3 class="module-title">Literature Review</h3>
+            <ul class="module-bullets">
+              <li>Comprehensive review of relevant research papers</li>
+              <li>Organized synthesis matrix of key themes</li>
+              <li>Build a strong theoretical background</li>
+            </ul>
+          </div>
+          <div class="module-footer-action">
+            <span class="module-link-text">Inspect Deliverables →</span>
+          </div>
+        </div>
+
+        <!-- 03: Royal Purple Tint -->
+        <div class="module-card module-card-purple" data-category="topic" onclick="openModuleModal(3)">
+          <div>
+            <div class="module-header-row">
+              <span class="module-category-pill">Topic & Proposal</span>
+              <span class="module-num">03</span>
+            </div>
+            <h3 class="module-title">Research Proposal</h3>
+            <ul class="module-bullets">
+              <li>Clear problem statement and objectives</li>
+              <li>Testable hypotheses & conceptual framework</li>
+              <li>Step-by-step methodology and study plan</li>
+            </ul>
+          </div>
+          <div class="module-footer-action">
+            <span class="module-link-text">Inspect Deliverables →</span>
+          </div>
+        </div>
+
+        <!-- 04: Ocean Emerald Tint -->
+        <div class="module-card module-card-emerald" data-category="writing" onclick="openModuleModal(4)">
+          <div>
+            <div class="module-header-row">
+              <span class="module-category-pill">Synopsis</span>
+              <span class="module-num">04</span>
+            </div>
+            <h3 class="module-title">Synopsis Writing</h3>
+            <ul class="module-bullets">
+              <li>Formatted to your exact university guidelines</li>
+              <li>Concise, well-structured, and precise</li>
+              <li>Ready for committee submission & approval</li>
+            </ul>
+          </div>
+          <div class="module-footer-action">
+            <span class="module-link-text">Inspect Deliverables →</span>
+          </div>
+        </div>
+
+        <!-- 05: Ocean Emerald Tint -->
+        <div class="module-card module-card-emerald" data-category="data" onclick="openModuleModal(5)">
+          <div>
+            <div class="module-header-row">
+              <span class="module-category-pill">Methodology</span>
+              <span class="module-num">05</span>
+            </div>
+            <h3 class="module-title">Research Methodology</h3>
+            <ul class="module-bullets">
+              <li>Quantitative, qualitative, or mixed study design</li>
+              <li>Sample size calculation and sampling techniques</li>
+              <li>Selection of the right research tools & methods</li>
+            </ul>
+          </div>
+          <div class="module-footer-action">
+            <span class="module-link-text">Inspect Deliverables →</span>
+          </div>
+        </div>
+
+        <!-- 06: Ocean Emerald Tint -->
+        <div class="module-card module-card-emerald" data-category="data" onclick="openModuleModal(6)">
+          <div>
+            <div class="module-header-row">
+              <span class="module-category-pill">Data Collection</span>
+              <span class="module-num">06</span>
+            </div>
+            <h3 class="module-title">Data Collection Support</h3>
+            <ul class="module-bullets">
+              <li>Questionnaire and survey scale formulation</li>
+              <li>Primary and secondary data gathering guidance</li>
+              <li>Reliability and pilot testing support</li>
+            </ul>
+          </div>
+          <div class="module-footer-action">
+            <span class="module-link-text">Inspect Deliverables →</span>
+          </div>
+        </div>
+
+        <!-- 07: Sapphire Blue Tint -->
+        <div class="module-card module-card-blue" data-category="data" onclick="openModuleModal(7)">
+          <div>
+            <div class="module-header-row">
+              <span class="module-category-pill">Data & Statistics</span>
+              <span class="module-num">07</span>
+            </div>
+            <h3 class="module-title">Data & Statistical Analysis</h3>
+            <ul class="module-bullets">
+              <li>Analysis in SPSS, AMOS, Excel, R, or Python</li>
+              <li>Descriptive, correlation & regression testing</li>
+              <li>Clear graphs and easy-to-understand explanations</li>
+            </ul>
+          </div>
+          <div class="module-footer-action">
+            <span class="module-link-text">Inspect Deliverables →</span>
+          </div>
+        </div>
+
+        <!-- 08: Sapphire Blue Tint -->
+        <div class="module-card module-card-blue" data-category="data" onclick="openModuleModal(8)">
+          <div>
+            <div class="module-header-row">
+              <span class="module-category-pill">Data & Statistics</span>
+              <span class="module-num">08</span>
+            </div>
+            <h3 class="module-title">Results & Discussion</h3>
+            <ul class="module-bullets">
+              <li>Clear interpretation of statistical results</li>
+              <li>Comparing findings with existing literature</li>
+              <li>Highlighting practical and theoretical conclusions</li>
+            </ul>
+          </div>
+          <div class="module-footer-action">
+            <span class="module-link-text">Inspect Deliverables →</span>
+          </div>
+        </div>
+
+        <!-- 09: Luxury Amber Tint -->
+        <div class="module-card module-card-amber" data-category="writing" onclick="openModuleModal(9)">
+          <div>
+            <div class="module-header-row">
+              <span class="module-category-pill">Thesis Writing</span>
+              <span class="module-num">09</span>
+            </div>
+            <h3 class="module-title">Thesis Writing</h3>
+            <ul class="module-bullets">
+              <li>Chapter-by-chapter drafting with smooth flow</li>
+              <li>Professional academic tone and clarity</li>
+              <li>Coherent structure ready for examiner review</li>
+            </ul>
+          </div>
+          <div class="module-footer-action">
+            <span class="module-link-text">Inspect Deliverables →</span>
+          </div>
+        </div>
+
+        <!-- 10: Luxury Amber Tint -->
+        <div class="module-card module-card-amber" data-category="writing" onclick="openModuleModal(10)">
+          <div>
+            <div class="module-header-row">
+              <span class="module-category-pill">Formatting</span>
+              <span class="module-num">10</span>
+            </div>
+            <h3 class="module-title">Referencing & Formatting</h3>
+            <ul class="module-bullets">
+              <li>APA, MLA, Chicago, Harvard citation styles</li>
+              <li>Matching in-text citations with bibliography</li>
+              <li>Perfect margin, font, and page layout formatting</li>
+            </ul>
+          </div>
+          <div class="module-footer-action">
+            <span class="module-link-text">Inspect Deliverables →</span>
+          </div>
+        </div>
+
+        <!-- 11: Crimson Warm Tint -->
+        <div class="module-card module-card-crimson" data-category="publish" onclick="openModuleModal(11)">
+          <div>
+            <div class="module-header-row">
+              <span class="module-category-pill">Plagiarism Check</span>
+              <span class="module-num">11</span>
+            </div>
+            <h3 class="module-title">Plagiarism Check</h3>
+            <ul class="module-bullets">
+              <li>100% originality ensured on all drafts</li>
+              <li>Detailed Turnitin similarity report provided</li>
+              <li>Rewriting and paraphrasing support if needed</li>
+            </ul>
+          </div>
+          <div class="module-footer-action">
+            <span class="module-link-text">Inspect Deliverables →</span>
+          </div>
+        </div>
+
+        <!-- 12: Crimson Warm Tint -->
+        <div class="module-card module-card-crimson" data-category="publish" onclick="openModuleModal(12)">
+          <div>
+            <div class="module-header-row">
+              <span class="module-category-pill">Publication</span>
+              <span class="module-num">12</span>
+            </div>
+            <h3 class="module-title">Publication Support</h3>
+            <ul class="module-bullets">
+              <li>Journal selection aligned with your topic</li>
+              <li>Paper formatting to journal author guidelines</li>
+              <li>Submission guidance & revision reply letters</li>
+            </ul>
+          </div>
+          <div class="module-footer-action">
+            <span class="module-link-text">Inspect Deliverables →</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 5: OUR 3-STEP SYSTEMATIC PROCESS (One-Word Phase Titles)
+       ========================================================================== -->
+  <section class="section-padding section-dark" id="process">
+    <div class="container">
+      
+      <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+        <span class="tag-badge tag-dark">Transparent & Predictable</span>
+        <h2 class="text-section-title" style="color: #ffffff;">Our 3-Step Systematic Process</h2>
+        <p class="text-section-subtitle" style="color: var(--text-light-secondary); margin-left: auto; margin-right: auto;">
+          A streamlined, milestone-driven roadmap designed to take you from initial consultation to final defense.
+        </p>
+      </div>
+
+      <!-- 3-Step Grid with One-Word Phase Titles -->
+      <div class="process-stepper-3">
+        
+        <!-- Step 1: Blueprint -->
+        <div class="process-step-card-3">
+          <div>
+            <div class="process-step-header">
+              <div class="step-badge-3">1</div>
+              <span class="step-phase-tag">Phase 01</span>
+            </div>
+            <h4 class="step-card-title-3">Blueprint</h4>
+            <p class="step-card-desc-3">
+              Share your university handbook, research domain, and deadlines on WhatsApp. We conduct an initial consultation to identify research gaps, map your study scope, and build a customized chapter work plan.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2: Drafting -->
+        <div class="process-step-card-3">
+          <div>
+            <div class="process-step-header">
+              <div class="step-badge-3">2</div>
+              <span class="step-phase-tag">Phase 02</span>
+            </div>
+            <h4 class="step-card-title-3">Drafting</h4>
+            <p class="step-card-desc-3">
+              Your dedicated domain team executes your statistical models in SPSS, AMOS, or R, formulates robust methodologies, and delivers chapters progressively with full citations and supervisor-ready formatting.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3: Defense -->
+        <div class="process-step-card-3">
+          <div>
+            <div class="process-step-header">
+              <div class="step-badge-3">3</div>
+              <span class="step-phase-tag">Phase 03</span>
+            </div>
+            <h4 class="step-card-title-3">Defense</h4>
+            <p class="step-card-desc-3">
+              Every deliverable undergoes strict Turnitin originality checks, formatting manual verification, iterative supervisor revisions, and plain-language viva defense prep until full institutional approval.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Celebration Milestone Card -->
+      <div style="margin-top: 50px; border-radius: 20px; overflow: hidden; border: 1px solid var(--navy-border); display: grid; grid-template-columns: 1.1fr 0.9fr; background: var(--navy-card); align-items: center;">
+        <div style="padding: 40px;">
+          <span class="tag-badge tag-dark">Milestone Achievement</span>
+          <h3 style="font-size: 1.8rem; color: #ffffff; margin-bottom: 12px;">Submit Your Thesis with Confidence</h3>
+          <p style="color: var(--text-light-secondary); margin-bottom: 20px; font-size: 0.92rem; line-height: 1.55;">
+            "PQRS guided me through my data analysis and thesis formatting step by step. Everything was clear, well-structured, and ready for my viva defense."
+          </p>
+          <div style="font-weight: 700; color: #ffffff;">Doctoral Scholar Milestone</div>
+          <div style="font-size: 0.82rem; color: var(--gold-light);">Faculty of Management & Humanities</div>
+        </div>
+        <div style="height: 100%; min-height: 280px;">
+          <img src="assets/scholar_celebration.jpg" alt="PhD Convocation Milestone" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 6: ROADMAP BUILDER (Interactive WhatsApp Engine)
+       ========================================================================== -->
+  <section class="section-padding" id="configurator">
+    <div class="container">
+      
+      <div style="text-align: center; max-width: 800px; margin: 0 auto 40px auto;">
+        <span class="tag-badge">Quick & Interactive</span>
+        <h2 class="text-section-title">Build Your Custom Research Plan</h2>
+        <p class="text-section-subtitle" style="margin-left: auto; margin-right: auto;">
+          Answer 3 quick questions to get a personalized roadmap and instant WhatsApp consultation.
+        </p>
+      </div>
+
+      <div class="wizard-container">
+        
+        <!-- Track Nodes -->
+        <div class="wizard-progress-track">
+          <div class="wizard-progress-line"></div>
+          <div class="wizard-progress-active" id="wizard-progress-bar"></div>
+          <div class="wizard-node active" id="node-1">1</div>
+          <div class="wizard-node" id="node-2">2</div>
+          <div class="wizard-node" id="node-3">3</div>
+          <div class="wizard-node" id="node-4">✓</div>
+        </div>
+
+        <!-- Step 1: Academic Discipline -->
+        <div class="wizard-step-pane active" id="step-1">
+          <h3 style="font-size: 1.3rem; color: var(--navy-deep); margin-bottom: 6px;">1. Select Your Academic Field</h3>
+          <p style="font-size: 0.9rem; color: var(--text-dark-secondary);">Choose your broad discipline to match with the right subject mentor:</p>
+          
+          <div class="wizard-options-grid">
+            <button class="wizard-opt-btn" onclick="selectWizardOption(1, 'Management & Commerce')">
+              <span>Management & Commerce</span>
+              <span>→</span>
+            </button>
+            <button class="wizard-opt-btn" onclick="selectWizardOption(1, 'Engineering & Tech')">
+              <span>Engineering & Tech</span>
+              <span>→</span>
+            </button>
+            <button class="wizard-opt-btn" onclick="selectWizardOption(1, 'Sciences & Pharmacy')">
+              <span>Sciences / Pharmacy</span>
+              <span>→</span>
+            </button>
+            <button class="wizard-opt-btn" onclick="selectWizardOption(1, 'Social Sciences & Humanities')">
+              <span>Social Sciences & Humanities</span>
+              <span>→</span>
+            </button>
+          </div>
+
+          <div class="wizard-nav-row">
+            <div></div>
+            <button class="btn btn-primary" id="btn-step-1" disabled onclick="goToWizardStep(2)">Next: Select Need →</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Requirement -->
+        <div class="wizard-step-pane" id="step-2">
+          <h3 style="font-size: 1.3rem; color: var(--navy-deep); margin-bottom: 6px;">2. What Do You Need Help With?</h3>
+          <p style="font-size: 0.9rem; color: var(--text-dark-secondary);">Select where you need the most guidance right now:</p>
+          
+          <div class="wizard-options-grid">
+            <button class="wizard-opt-btn" onclick="selectWizardOption(2, 'Topic Selection & Proposal')">
+              <span>Topic Selection & Proposal</span>
+              <span>→</span>
+            </button>
+            <button class="wizard-opt-btn" onclick="selectWizardOption(2, 'Literature Review')">
+              <span>Literature Review</span>
+              <span>→</span>
+            </button>
+            <button class="wizard-opt-btn" onclick="selectWizardOption(2, 'Data & Statistical Analysis')">
+              <span>SPSS / R Data Analysis</span>
+              <span>→</span>
+            </button>
+            <button class="wizard-opt-btn" onclick="selectWizardOption(2, 'Full Thesis Writing')">
+              <span>Thesis Writing & Formatting</span>
+              <span>→</span>
+            </button>
+            <button class="wizard-opt-btn" onclick="selectWizardOption(2, 'Plagiarism & Turnitin Check')">
+              <span>Plagiarism & Turnitin Report</span>
+              <span>→</span>
+            </button>
+            <button class="wizard-opt-btn" onclick="selectWizardOption(2, 'Journal Paper Publication')">
+              <span>Paper Publication Support</span>
+              <span>→</span>
+            </button>
+          </div>
+
+          <div class="wizard-nav-row">
+            <button class="btn btn-outline" onclick="goToWizardStep(1)">← Back</button>
+            <button class="btn btn-primary" id="btn-step-2" disabled onclick="goToWizardStep(3)">Next: Timeline →</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Target Timeline -->
+        <div class="wizard-step-pane" id="step-3">
+          <h3 style="font-size: 1.3rem; color: var(--navy-deep); margin-bottom: 6px;">3. Target Completion Timeline</h3>
+          <p style="font-size: 0.9rem; color: var(--text-dark-secondary);">When do you plan to submit your chapters?</p>
+          
+          <div class="wizard-options-grid">
+            <button class="wizard-opt-btn" onclick="selectWizardOption(3, 'Urgent: 1-2 Months')">
+              <span>Urgent (1–2 Months)</span>
+              <span>⚡ Fast</span>
+            </button>
+            <button class="wizard-opt-btn" onclick="selectWizardOption(3, 'Standard: 3-4 Months')">
+              <span>Standard (3–4 Months)</span>
+              <span>★ Popular</span>
+            </button>
+            <button class="wizard-opt-btn" onclick="selectWizardOption(3, 'Comprehensive: 6+ Months')">
+              <span>Comprehensive (6+ Months)</span>
+              <span>🛡️ Structured</span>
+            </button>
+            <button class="wizard-opt-btn" onclick="selectWizardOption(3, 'Next Semester Submission')">
+              <span>Next Semester</span>
+              <span>📅 Scheduled</span>
+            </button>
+          </div>
+
+          <div class="wizard-nav-row">
+            <button class="btn btn-outline" onclick="goToWizardStep(2)">← Back</button>
+            <button class="btn btn-primary" id="btn-step-3" disabled onclick="generateFinalRoadmap()">Build My Plan →</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Summary & WhatsApp Conversion -->
+        <div class="wizard-step-pane" id="step-4">
+          <div style="text-align: center; margin-bottom: 24px;">
+            <h3 style="font-size: 1.5rem; color: var(--navy-deep); margin-bottom: 6px;">Your Custom Plan Summary</h3>
+            <p style="font-size: 0.92rem; color: var(--text-dark-secondary);">Tap below to chat directly with our research coordinator on WhatsApp.</p>
+          </div>
+
+          <div style="background: var(--bg-warm-light); border-radius: 16px; padding: 20px; border: 1px solid var(--border-light); margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.88rem;">
+              <span style="color: var(--text-dark-tertiary);">Academic Field:</span>
+              <strong id="summary-discipline" style="color: var(--navy-deep);">—</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.88rem;">
+              <span style="color: var(--text-dark-tertiary);">Requirement:</span>
+              <strong id="summary-bottleneck" style="color: var(--navy-deep);">—</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.88rem;">
+              <span style="color: var(--text-dark-tertiary);">Target Timeline:</span>
+              <strong id="summary-timeline" style="color: var(--navy-deep);">—</strong>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <a href="#" id="whatsapp-wizard-link" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-compact" style="padding: 14px 24px; font-size: 0.98rem; width: 100%;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.24-.75-.67-1.26-1.5-1.41-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.22.89 2.41 1.02 2.58.13.17 1.76 2.68 4.25 3.76.59.26 1.05.41 1.41.53.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.12-.22-.19-.47-.31z"/></svg>
+              <span>Chat on WhatsApp (+91 7799956799)</span>
+            </a>
+            <button class="btn btn-outline" onclick="resetWizard()" style="font-size: 0.82rem; padding: 8px;">Start Over</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 7: TRUST & PRIVACY GUARANTEE (Clean Minimalist Cards, No Icons)
+       ========================================================================== -->
+  <section class="section-padding section-dark" id="trust">
+    <div class="container">
+      
+      <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+        <span class="tag-badge tag-dark">Our Guarantee</span>
+        <h2 class="text-section-title" style="color: #ffffff;">Why You Can Trust PQRS</h2>
+        <p class="text-section-subtitle" style="color: var(--text-light-secondary); margin-left: auto; margin-right: auto;">
+          We stand behind the quality, originality, and security of every research draft we deliver.
+        </p>
+      </div>
+
+      <div class="trust-pillars-grid">
+        
+        <div class="trust-pillar-card">
+          <h4>100% Privacy & Data Security</h4>
+          <p>Your research data, topic ideas, and personal identity are kept completely safe and private.</p>
+        </div>
+
+        <div class="trust-pillar-card">
+          <h4>On-Time Delivery</h4>
+          <p>We work in clear chapter stages to ensure you meet all your university submission deadlines.</p>
+        </div>
+
+        <div class="trust-pillar-card">
+          <h4>100% Original Work</h4>
+          <p>Every draft comes with a verified Turnitin originality report showing authentic, human writing.</p>
+        </div>
+
+        <div class="trust-pillar-card">
+          <h4>Expert Subject Mentors</h4>
+          <p>You work with experienced researchers who hold doctorates in your specific field of study.</p>
+        </div>
+
+        <div class="trust-pillar-card">
+          <h4>University Guideline Compliance</h4>
+          <p>All chapters are formatted exactly to your institution's required layout and referencing style.</p>
+        </div>
+
+        <div class="trust-pillar-card">
+          <h4>Iterative Support</h4>
+          <p>Continuous supervisor revision support and viva preparation guidance until university approval.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 8: FAQ
+       ========================================================================== -->
+  <section class="section-padding" id="faq">
+    <div class="container">
+      
+      <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+        <span class="tag-badge">Clear Answers</span>
+        <h2 class="text-section-title">Frequently Asked Questions</h2>
+        <p class="text-section-subtitle" style="margin-left: auto; margin-right: auto;">
+          Simple answers to common questions about our research consulting services.
+        </p>
+      </div>
+
+      <div class="faq-wrapper">
+        <input type="text" id="faq-search" class="faq-search-input" placeholder="Search questions (e.g. Plagiarism, Turnitin, Timelines, Chapters)..." oninput="filterFAQ()">
+
+        <div class="faq-item active">
+          <button class="faq-question-btn" onclick="toggleFAQ(this)">
+            <span>How does PQRS ensure original, plagiarism-free work?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer-panel">
+            <p>Every draft is written from scratch and verified using official Turnitin similarity software. We provide you with the full report showing similarity scores well within your university's guidelines.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question-btn" onclick="toggleFAQ(this)">
+            <span>Is my personal information and research data secure?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer-panel">
+            <p>Yes, 100%. We maintain strict privacy and data security standards. Your identity, university affiliation, and research files are never shared with any third party.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question-btn" onclick="toggleFAQ(this)">
+            <span>Which statistical software do you assist with?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer-panel">
+            <p>We provide full support for SPSS, AMOS, Excel, R, and Python. We run the tests, create high-resolution charts, and explain what each number means in simple terms.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question-btn" onclick="toggleFAQ(this)">
+            <span>Can I get help with individual chapters only?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer-panel">
+            <p>Yes. You can choose any of our 12 services individually — such as just statistical data analysis, literature review, formatting, or full thesis drafting.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question-btn" onclick="toggleFAQ(this)">
+            <span>How quickly can I get started with PQRS?</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer-panel">
+            <p>You can get started immediately. Message our team on WhatsApp at <strong>+91 7799956799</strong> with your topic and requirements, and we will pair you with a subject mentor.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       MODAL INSPECTION SHEET
+       ========================================================================== -->
+  <div class="module-modal-backdrop" id="module-modal-backdrop" onclick="closeModalOnBackdrop(event)">
+    <div class="module-modal-card">
+      <button class="modal-close-btn" onclick="closeModuleModal()">✕</button>
+      <span class="module-num" id="modal-num">01</span>
+      <h3 style="font-size: 1.6rem; color: var(--navy-deep); margin-bottom: 12px;" id="modal-title">Service Title</h3>
+      <p style="color: var(--text-dark-secondary); margin-bottom: 20px; font-size: 0.95rem; line-height: 1.55;" id="modal-desc">Service description.</p>
+      
+      <h5 style="font-size: 0.9rem; font-weight: 700; color: var(--navy-deep); margin-bottom: 10px; text-transform: uppercase;">What You Get</h5>
+      <ul class="module-bullets" id="modal-deliverables" style="margin-bottom: 26px;"></ul>
+
+      <div style="display: flex; gap: 10px;">
+        <a href="#" id="modal-whatsapp-link" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-compact" style="width: 100%; padding: 12px 18px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.24-.75-.67-1.26-1.5-1.41-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.22.89 2.41 1.02 2.58.13.17 1.76 2.68 4.25 3.76.59.26 1.05.41 1.41.53.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.12-.22-.19-.47-.31z"/></svg>
+          <span>Ask About This on WhatsApp (+91 7799956799)</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="pqrs-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        
+        <div class="footer-brand-summary">
+          <div class="brand-wrapper" style="margin-bottom: 10px;">
+            <img src="assets/logo.jpg" alt="PQRS Logo" class="brand-logo-img">
+            <div class="brand-text-col">
+              <span class="brand-title" style="color: #ffffff;">PQRS</span>
+              <span class="brand-fullname" style="color: var(--gold-light);">Prajna Quest Research Solutions</span>
+            </div>
+          </div>
+          <p>
+            Prajna Quest Research Solutions (PQRS) provides comprehensive PhD consulting, data analysis, thesis writing, and journal publication support.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h5>Core Services</h5>
+          <ul class="footer-links">
+            <li><a href="#services">Topic & Proposal</a></li>
+            <li><a href="#services">Literature Review</a></li>
+            <li><a href="#services">Statistical Analysis</a></li>
+            <li><a href="#services">Thesis Writing</a></li>
+            <li><a href="#services">Plagiarism Check</a></li>
+            <li><a href="#services">Paper Publication</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="#cost-of-delay">The Cost of Delay</a></li>
+            <li><a href="#ecosystem">Under One Roof</a></li>
+            <li><a href="#process">3-Step Process</a></li>
+            <li><a href="#configurator">Plan Builder</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Direct Contact</h5>
+          <ul class="footer-links">
+            <li style="color: #ffffff; font-weight: 600;">WhatsApp Support:</li>
+            <li><a href="https://wa.me/917799956799" target="_blank" style="color: var(--gold-light); font-size: 1.05rem; font-weight: 700;">+91 7799956799</a></li>
+            <li style="margin-top: 8px; color: var(--text-light-tertiary);">Mon – Sat: 9:00 AM – 8:00 PM IST</li>
+            <li style="color: var(--text-light-tertiary);">Confidential & Secure</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div>© 2026 Prajna Quest Research Solutions (PQRS). All Rights Reserved.</div>
+        <div>Strict Academic Integrity & University Guideline Compliance.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       OFFICIAL ROUND FLOATING WHATSAPP BUTTON (Bottom Right with Pulse Animation)
+       ========================================================================== -->
+  <a href="https://wa.me/917799956799?text=Hi%20PQRS%2C%20I%20need%20help%20with%20my%20research%20work.%20Please%20share%20details." target="_blank" rel="noopener noreferrer" class="floating-whatsapp-round" title="Chat on WhatsApp (+91 7799956799)">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.24-.75-.67-1.26-1.5-1.41-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.22.89 2.41 1.02 2.58.13.17 1.76 2.68 4.25 3.76.59.26 1.05.41 1.41.53.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.12-.22-.19-.47-.31z"/></svg>
+  </a>
+
+  <script src="main.js"></script>
+</body>
+</html>
