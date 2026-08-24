@@ -196,7 +196,7 @@ p.lead-text {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(4, 13, 26, 0.85); /* Deep luxury midnight frosted background */
+  background: rgba(4, 13, 26, 0.85);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
   border-bottom: 1px solid rgba(197, 160, 89, 0.22);
@@ -223,7 +223,6 @@ p.lead-text {
   text-decoration: none;
 }
 
-/* Enlarged Logo without golden border */
 .brand-logo-img {
   width: 48px;
   height: 48px;
@@ -238,13 +237,12 @@ p.lead-text {
   flex-direction: column;
 }
 
-/* PQRS on top, Prajna Quest Research Solutions on bottom */
 .brand-title {
   font-family: var(--font-display);
   font-size: 1.35rem;
   font-weight: 800;
   letter-spacing: -0.03em;
-  color: #ffffff; /* Crisp white title on dark navbar */
+  color: #ffffff;
   line-height: 1.05;
 }
 
@@ -253,7 +251,7 @@ p.lead-text {
   text-transform: uppercase;
   letter-spacing: 0.07em;
   font-weight: 700;
-  color: var(--gold-light); /* Refined gold expansion on bottom */
+  color: var(--gold-light);
   line-height: 1.1;
   margin-top: 2px;
 }
@@ -309,7 +307,7 @@ p.lead-text {
   left: 50%;
   transform: translateX(-50%) translateY(-8px);
   width: 320px;
-  background: rgba(8, 22, 43, 0.98); /* Dark luxury dropdown matching top bar */
+  background: rgba(8, 22, 43, 0.98);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
   border: 1px solid rgba(197, 160, 89, 0.3);
@@ -715,7 +713,7 @@ p.lead-text {
   transition: opacity 0.25s ease-out, transform 0.25s ease-out;
 }
 
-/* Metric Strip (3-Item Clean Grid without 1-on-1 Block) */
+/* Metric Strip */
 .metrics-strip {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1009,31 +1007,26 @@ p.lead-text {
   height: 100%;
 }
 
-/* Category 1: Royal Purple Tint */
 .module-card-purple {
   background: linear-gradient(145deg, #ffffff 0%, #f5f3ff 100%);
   border-top: 4px solid #8b5cf6;
 }
 
-/* Category 2: Ocean Emerald Tint */
 .module-card-emerald {
   background: linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%);
   border-top: 4px solid #10b981;
 }
 
-/* Category 3: Sapphire Azure Tint */
 .module-card-blue {
   background: linear-gradient(145deg, #ffffff 0%, #eff6ff 100%);
   border-top: 4px solid #3b82f6;
 }
 
-/* Category 4: Luxury Amber Tint */
 .module-card-amber {
   background: linear-gradient(145deg, #ffffff 0%, #fffbeb 100%);
   border-top: 4px solid #f59e0b;
 }
 
-/* Category 5: Crimson Warm Tint */
 .module-card-crimson {
   background: linear-gradient(145deg, #ffffff 0%, #fef2f2 100%);
   border-top: 4px solid #ef4444;
@@ -1250,8 +1243,8 @@ p.lead-text {
 }
 
 .wizard-node {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: #ffffff;
   border: 2px solid var(--border-light);
@@ -1260,21 +1253,36 @@ p.lead-text {
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   position: relative;
   z-index: 3;
+  cursor: pointer;
+  outline: none;
+  font-family: var(--font-display);
+  transition: all 0.25s var(--ease-apple);
+  box-shadow: 0 2px 8px rgba(8, 22, 43, 0.04);
+}
+
+.wizard-node:hover {
+  border-color: var(--gold-primary);
+  color: var(--navy-deep);
+  transform: scale(1.12);
+  box-shadow: 0 4px 14px rgba(197, 160, 89, 0.35);
 }
 
 .wizard-node.active {
   border-color: var(--gold-primary);
   background: var(--gold-primary);
   color: var(--navy-deep);
+  transform: scale(1.08);
+  box-shadow: 0 4px 16px rgba(197, 160, 89, 0.4);
 }
 
 .wizard-node.completed {
   border-color: var(--gold-primary);
   background: var(--navy-deep);
   color: var(--gold-light);
+  cursor: pointer;
 }
 
 .wizard-step-pane {
@@ -1294,24 +1302,28 @@ p.lead-text {
 }
 
 .wizard-opt-btn {
-  padding: 16px 20px;
+  padding: 18px 22px;
   border-radius: 14px;
   border: 1.5px solid var(--border-light);
   background: #ffffff;
   color: var(--text-dark-primary);
-  font-size: 0.92rem;
+  font-size: 0.94rem;
   font-weight: 600;
   text-align: left;
   cursor: pointer;
-  transition: var(--transition-fast);
+  transition: all 0.2s var(--ease-apple);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(8, 22, 43, 0.02);
 }
 
 .wizard-opt-btn:hover {
   border-color: var(--gold-primary);
-  background: rgba(197, 160, 89, 0.04);
+  background: rgba(197, 160, 89, 0.06);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(8, 22, 43, 0.08);
 }
 
 .wizard-opt-btn.selected {
@@ -1319,7 +1331,8 @@ p.lead-text {
   background: linear-gradient(145deg, #ffffff 0%, #fefaf0 100%) !important;
   color: var(--navy-deep) !important;
   font-weight: 700 !important;
-  box-shadow: 0 0 0 2px var(--gold-primary), 0 4px 14px rgba(197, 160, 89, 0.25) !important;
+  box-shadow: 0 0 0 2px var(--gold-primary), 0 6px 20px rgba(197, 160, 89, 0.28) !important;
+  transform: translateY(-1px);
 }
 
 .btn-ready {
