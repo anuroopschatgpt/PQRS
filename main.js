@@ -489,6 +489,9 @@ function selectWizardOption(step, value, btnEl, e) {
       nextBtn.style.cursor = "pointer";
       nextBtn.style.pointerEvents = "auto";
     }
+    setTimeout(() => {
+      goToWizardStep(2);
+    }, 160);
   } else if (step === 2) {
     wizardState.bottleneck = value;
     const nextBtn = document.getElementById("btn-step-2");
@@ -500,6 +503,9 @@ function selectWizardOption(step, value, btnEl, e) {
       nextBtn.style.cursor = "pointer";
       nextBtn.style.pointerEvents = "auto";
     }
+    setTimeout(() => {
+      goToWizardStep(3);
+    }, 160);
   } else if (step === 3) {
     wizardState.timeline = value;
     const nextBtn = document.getElementById("btn-step-3");
@@ -511,6 +517,9 @@ function selectWizardOption(step, value, btnEl, e) {
       nextBtn.style.cursor = "pointer";
       nextBtn.style.pointerEvents = "auto";
     }
+    setTimeout(() => {
+      generateFinalRoadmap();
+    }, 160);
   }
 }
 
@@ -552,6 +561,34 @@ function goToWizardStep(step, e) {
     } else if (i === targetStep) {
       node.classList.add("active");
     }
+  }
+
+  // If navigating to step 4, update summary fields and WhatsApp link
+  if (targetStep === 4) {
+    const disciplineEl = document.getElementById("summary-discipline");
+    const bottleneckEl = document.getElementById("summary-bottleneck");
+    const timelineEl = document.getElementById("summary-timeline");
+
+    const disc = wizardState.discipline || "Management & Commerce";
+    const bneck = wizardState.bottleneck || "Full Thesis Writing";
+    const tline = wizardState.timeline || "Standard: 3-4 Months";
+
+    if (disciplineEl) disciplineEl.textContent = disc;
+    if (bottleneckEl) bottleneckEl.textContent = bneck;
+    if (timelineEl) timelineEl.textContent = tline;
+
+    const waMessage = 
+`*PQRS RESEARCH CONSULTATION*
+----------------------------------------
+🎓 *Academic Field:* ${disc}
+🎯 *Requirement:* ${bneck}
+⏳ *Timeline:* ${tline}
+----------------------------------------
+_Hi PQRS team, please review my research requirement and connect me with a mentor._`;
+
+    const waUrl = `https://wa.me/${PQRS_PHONE}?text=${encodeURIComponent(waMessage)}`;
+    const waLink = document.getElementById("whatsapp-wizard-link");
+    if (waLink) waLink.href = waUrl;
   }
 
   // Smooth scroll to wizard if on mobile
