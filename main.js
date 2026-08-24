@@ -144,126 +144,121 @@ const MODULE_DATA = {
 };
 
 // ==========================================================================
-// 2. SCROLL-EXPANSION HERO ANIMATION (Full React Component Parity)
+// 2. SCROLL-EXPANSION HERO ANIMATION (Full Parity & Safe Fallback)
 // ==========================================================================
 function initScrollExpansionHero() {
-  const card = document.getElementById("scroll-expand-card");
-  const bgLayer = document.getElementById("hero-bg-layer");
-  const line1 = document.getElementById("hero-title-line-1");
-  const line2 = document.getElementById("hero-title-line-2");
-  const badge = document.getElementById("hero-badge");
-  const leadText = document.getElementById("hero-lead-text");
-  const ctaCluster = document.getElementById("hero-cta-cluster");
-  const expandImg = document.getElementById("hero-expand-img");
-  const expandOverlay = document.getElementById("hero-expand-overlay");
-  const metricsStrip = document.getElementById("hero-metrics-strip");
+  try {
+    const card = document.getElementById("scroll-expand-card");
+    const bgLayer = document.getElementById("hero-bg-layer");
+    const line1 = document.getElementById("hero-title-line-1");
+    const line2 = document.getElementById("hero-title-line-2");
+    const badge = document.getElementById("hero-badge");
+    const leadText = document.getElementById("hero-lead-text");
+    const ctaCluster = document.getElementById("hero-cta-cluster");
+    const expandImg = document.getElementById("hero-expand-img");
+    const expandOverlay = document.getElementById("hero-expand-overlay");
+    const metricsStrip = document.getElementById("hero-metrics-strip");
 
-  if (!card) return;
+    if (!card) return;
 
-  let scrollProgress = 0;
-  let targetProgress = 0;
-  let animationFrameId = null;
+    let scrollProgress = 0;
+    let targetProgress = 0;
+    let animationFrameId = null;
 
-  function renderProgress(progress) {
-    const isMobile = window.innerWidth < 768;
-    
-    // Width & Height expansion (from compact centered card to cinematic full width)
-    const baseWidth = isMobile ? 280 : 340;
-    const expandWidth = isMobile ? (window.innerWidth * 0.92 - baseWidth) : (Math.min(window.innerWidth * 0.88, 1150) - baseWidth);
-    const baseHeight = isMobile ? 320 : 380;
-    const expandHeight = isMobile ? 180 : 240;
+    function renderProgress(progress) {
+      const isMobile = window.innerWidth < 768;
+      
+      const baseWidth = isMobile ? 280 : 340;
+      const targetMaxWidth = Math.min(window.innerWidth * 0.92, 1150);
+      const expandWidth = Math.max(targetMaxWidth - baseWidth, 100);
+      const baseHeight = isMobile ? 320 : 380;
+      const expandHeight = isMobile ? 180 : 240;
 
-    const currentWidth = Math.min(baseWidth + progress * expandWidth, window.innerWidth * 0.95);
-    const currentHeight = Math.min(baseHeight + progress * expandHeight, window.innerHeight * 0.85);
+      const currentWidth = Math.min(baseWidth + progress * expandWidth, window.innerWidth * 0.95);
+      const currentHeight = Math.min(baseHeight + progress * expandHeight, window.innerHeight * 0.85);
 
-    card.style.width = `${currentWidth}px`;
-    card.style.height = `${currentHeight}px`;
-    card.style.transform = `scale(${1 + progress * 0.03})`;
+      card.style.width = `${currentWidth}px`;
+      card.style.height = `${currentHeight}px`;
+      card.style.transform = `scale(${1 + progress * 0.03})`;
 
-    // Image zoom inside the card
-    if (expandImg) {
-      expandImg.style.transform = `scale(${1 + progress * 0.08})`;
+      if (expandImg) {
+        expandImg.style.transform = `scale(${1 + progress * 0.08})`;
+      }
+
+      if (expandOverlay) {
+        expandOverlay.style.background = `linear-gradient(180deg, rgba(4, 13, 26, ${0.1 + (1 - progress) * 0.2}) 0%, rgba(4, 13, 26, ${0.85 - progress * 0.35}) 100%)`;
+      }
+
+      const textTranslateX = progress * (isMobile ? 120 : 85);
+      const textOpacity = Math.max(1 - progress * 1.5, 0);
+
+      if (line1) {
+        line1.style.transform = `translateX(-${textTranslateX}vw)`;
+        line1.style.opacity = textOpacity;
+      }
+
+      if (line2) {
+        line2.style.transform = `translateX(${textTranslateX}vw)`;
+        line2.style.opacity = textOpacity;
+      }
+
+      const uiOpacity = Math.max(1 - progress * 1.8, 0);
+      const uiTranslateY = -progress * 25;
+
+      if (badge) {
+        badge.style.opacity = uiOpacity;
+        badge.style.transform = `translateY(${uiTranslateY}px)`;
+      }
+      if (leadText) {
+        leadText.style.opacity = uiOpacity;
+        leadText.style.transform = `translateY(${uiTranslateY}px)`;
+      }
+      if (ctaCluster) {
+        ctaCluster.style.opacity = uiOpacity;
+        ctaCluster.style.transform = `translateY(${uiTranslateY}px)`;
+      }
+
+      if (bgLayer) {
+        bgLayer.style.opacity = `${0.36 * (1 - progress * 0.65)}`;
+      }
+
+      if (metricsStrip) {
+        metricsStrip.style.opacity = progress > 0.3 ? `${(progress - 0.3) / 0.7}` : "0.1";
+        metricsStrip.style.transform = `translateY(${(1 - progress) * 16}px)`;
+      }
     }
 
-    // Overlay brightness/dimming
-    if (expandOverlay) {
-      expandOverlay.style.background = `linear-gradient(180deg, rgba(4, 13, 26, ${0.1 + (1 - progress) * 0.2}) 0%, rgba(4, 13, 26, ${0.85 - progress * 0.35}) 100%)`;
+    function updateProgressSmoothly() {
+      const diff = targetProgress - scrollProgress;
+      if (Math.abs(diff) > 0.001) {
+        scrollProgress += diff * 0.2;
+        renderProgress(scrollProgress);
+        animationFrameId = requestAnimationFrame(updateProgressSmoothly);
+      } else {
+        scrollProgress = targetProgress;
+        renderProgress(scrollProgress);
+        animationFrameId = null;
+      }
     }
 
-    // Sideways Horizontal Text Split Animation (from original component)
-    const textTranslateX = progress * (isMobile ? 120 : 85); // in vw
-    const textOpacity = Math.max(1 - progress * 1.5, 0);
-
-    if (line1) {
-      line1.style.transform = `translateX(-${textTranslateX}vw)`;
-      line1.style.opacity = textOpacity;
+    function setTarget(val) {
+      targetProgress = Math.min(Math.max(val, 0), 1);
+      if (!animationFrameId) {
+        animationFrameId = requestAnimationFrame(updateProgressSmoothly);
+      }
     }
 
-    if (line2) {
-      line2.style.transform = `translateX(${textTranslateX}vw)`;
-      line2.style.opacity = textOpacity;
-    }
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+      const maxScroll = Math.max(window.innerHeight * 0.6, 420);
+      const progress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
+      setTarget(progress);
+    }, { passive: true });
 
-    // Badge, Subtitle & Buttons Fade
-    const uiOpacity = Math.max(1 - progress * 1.8, 0);
-    const uiTranslateY = -progress * 25; // px upward
-
-    if (badge) {
-      badge.style.opacity = uiOpacity;
-      badge.style.transform = `translateY(${uiTranslateY}px)`;
-    }
-    if (leadText) {
-      leadText.style.opacity = uiOpacity;
-      leadText.style.transform = `translateY(${uiTranslateY}px)`;
-    }
-    if (ctaCluster) {
-      ctaCluster.style.opacity = uiOpacity;
-      ctaCluster.style.transform = `translateY(${uiTranslateY}px)`;
-    }
-
-    // Ambient background fade
-    if (bgLayer) {
-      bgLayer.style.opacity = `${0.36 * (1 - progress * 0.65)}`;
-    }
-
-    // Metrics Strip smooth reveal
-    if (metricsStrip) {
-      metricsStrip.style.opacity = progress > 0.3 ? `${(progress - 0.3) / 0.7}` : "0.1";
-      metricsStrip.style.transform = `translateY(${(1 - progress) * 16}px)`;
-    }
+    renderProgress(0);
+  } catch (err) {
+    console.warn("Scroll animation init fallback:", err);
   }
-
-  // Smooth animation frame loop
-  function updateProgressSmoothly() {
-    const diff = targetProgress - scrollProgress;
-    if (Math.abs(diff) > 0.001) {
-      scrollProgress += diff * 0.2; // smooth interpolation
-      renderProgress(scrollProgress);
-      animationFrameId = requestAnimationFrame(updateProgressSmoothly);
-    } else {
-      scrollProgress = targetProgress;
-      renderProgress(scrollProgress);
-      animationFrameId = null;
-    }
-  }
-
-  function setTarget(val) {
-    targetProgress = Math.min(Math.max(val, 0), 1);
-    if (!animationFrameId) {
-      animationFrameId = requestAnimationFrame(updateProgressSmoothly);
-    }
-  }
-
-  // Sync with window scroll
-  window.addEventListener("scroll", () => {
-    const scrollY = window.scrollY;
-    const maxScroll = Math.max(window.innerHeight * 0.6, 420);
-    const progress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
-    setTarget(progress);
-  }, { passive: true });
-
-  // Initial render
-  renderProgress(0);
 }
 
 // ==========================================================================
@@ -271,38 +266,45 @@ function initScrollExpansionHero() {
 // ==========================================================================
 function initNavbar() {
   const navbar = document.getElementById("navbar");
-  if (!navbar) return;
+  if (navbar) {
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY || window.pageYOffset || 0;
+      if (scrollY > 30) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    }, { passive: true });
+  }
 
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 30) {
-      navbar.classList.add("scrolled");
-    } else {
-      navbar.classList.remove("scrolled");
-    }
-  });
-
-  // Click outside to close Nav Hub dropdown
+  // Close dropdown on outside click
   document.addEventListener("click", (e) => {
     const hubWrapper = document.getElementById("nav-hub-wrapper");
-    const dropdown = document.getElementById("nav-hub-dropdown");
-    const trigger = document.getElementById("nav-hub-trigger");
     if (hubWrapper && !hubWrapper.contains(e.target)) {
-      if (dropdown) dropdown.classList.remove("active");
-      if (trigger) {
-        trigger.classList.remove("active");
-        trigger.setAttribute("aria-expanded", "false");
-      }
+      closeNavHub();
     }
   });
 }
 
-function toggleNavHub() {
+function toggleNavHub(e) {
+  if (e && e.stopPropagation) e.stopPropagation();
   const trigger = document.getElementById("nav-hub-trigger");
   const dropdown = document.getElementById("nav-hub-dropdown");
   if (trigger && dropdown) {
     const isActive = dropdown.classList.toggle("active");
     trigger.classList.toggle("active", isActive);
     trigger.setAttribute("aria-expanded", isActive ? "true" : "false");
+    
+    if (isActive) {
+      dropdown.style.opacity = "1";
+      dropdown.style.pointerEvents = "auto";
+      dropdown.style.transform = "translateX(-50%) translateY(0)";
+      dropdown.style.display = "flex";
+    } else {
+      dropdown.style.opacity = "";
+      dropdown.style.pointerEvents = "";
+      dropdown.style.transform = "";
+    }
   }
 }
 
@@ -313,15 +315,19 @@ function closeNavHub() {
     dropdown.classList.remove("active");
     trigger.classList.remove("active");
     trigger.setAttribute("aria-expanded", "false");
+    dropdown.style.opacity = "";
+    dropdown.style.pointerEvents = "";
+    dropdown.style.transform = "";
   }
 }
 
-function toggleMobileNav() {
+function toggleMobileNav(e) {
+  if (e && e.stopPropagation) e.stopPropagation();
   const toggleBtn = document.getElementById("mobile-toggle");
   const drawer = document.getElementById("mobile-nav-drawer");
   if (toggleBtn && drawer) {
-    toggleBtn.classList.toggle("active");
-    drawer.classList.toggle("active");
+    const isActive = drawer.classList.toggle("active");
+    toggleBtn.classList.toggle("active", isActive);
   }
 }
 
@@ -342,11 +348,17 @@ function filterModules(category) {
   const buttons = document.querySelectorAll(".filter-btn");
 
   buttons.forEach(btn => {
-    btn.classList.toggle("active", btn.textContent.toLowerCase().includes(category) || (category === 'all' && btn.textContent.includes('All')));
+    const text = (btn.textContent || "").toLowerCase();
+    const btnCat = btn.getAttribute("data-filter") || "";
+    const isMatch = (category === "all" && (text.includes("all") || btnCat === "all")) ||
+                    btnCat === category ||
+                    text.includes(category);
+    btn.classList.toggle("active", isMatch);
   });
 
   cards.forEach(card => {
-    if (category === "all" || card.getAttribute("data-category") === category) {
+    const cardCat = card.getAttribute("data-category");
+    if (category === "all" || cardCat === category) {
       card.style.display = "flex";
     } else {
       card.style.display = "none";
@@ -358,33 +370,49 @@ function openModuleModal(id) {
   const data = MODULE_DATA[id];
   if (!data) return;
 
-  document.getElementById("modal-num").textContent = data.num;
-  document.getElementById("modal-title").textContent = data.title;
-  document.getElementById("modal-desc").textContent = data.desc;
-
+  const numEl = document.getElementById("modal-num");
+  const titleEl = document.getElementById("modal-title");
+  const descEl = document.getElementById("modal-desc");
   const deliverablesList = document.getElementById("modal-deliverables");
-  deliverablesList.innerHTML = "";
-  data.deliverables.forEach(item => {
-    const li = document.createElement("li");
-    li.textContent = item;
-    deliverablesList.appendChild(li);
-  });
-
   const waLink = document.getElementById("modal-whatsapp-link");
-  const message = `Hello PQRS, I would like to inquire about: ${data.title}.`;
-  waLink.href = `https://wa.me/${PQRS_PHONE}?text=${encodeURIComponent(message)}`;
+  const backdrop = document.getElementById("module-modal-backdrop");
 
-  document.getElementById("module-modal-backdrop").classList.add("active");
+  if (numEl) numEl.textContent = data.num;
+  if (titleEl) titleEl.textContent = data.title;
+  if (descEl) descEl.textContent = data.desc;
+
+  if (deliverablesList) {
+    deliverablesList.innerHTML = "";
+    data.deliverables.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      deliverablesList.appendChild(li);
+    });
+  }
+
+  if (waLink) {
+    const message = `Hello PQRS, I would like to inquire about: ${data.title}.`;
+    waLink.href = `https://wa.me/${PQRS_PHONE}?text=${encodeURIComponent(message)}`;
+  }
+
+  if (backdrop) {
+    backdrop.classList.add("active");
+    backdrop.style.display = "flex";
+  }
   document.body.style.overflow = "hidden";
 }
 
 function closeModuleModal() {
-  document.getElementById("module-modal-backdrop").classList.remove("active");
+  const backdrop = document.getElementById("module-modal-backdrop");
+  if (backdrop) {
+    backdrop.classList.remove("active");
+    backdrop.style.display = "none";
+  }
   document.body.style.overflow = "auto";
 }
 
 function closeModalOnBackdrop(e) {
-  if (e.target.id === "module-modal-backdrop") {
+  if (e && e.target && e.target.id === "module-modal-backdrop") {
     closeModuleModal();
   }
 }
@@ -398,39 +426,77 @@ let wizardState = {
   timeline: ""
 };
 
-function selectWizardOption(step, value) {
+function selectWizardOption(step, value, btnEl) {
   const pane = document.getElementById(`step-${step}`);
-  const buttons = pane.querySelectorAll(".wizard-opt-btn");
+  if (!pane) return;
 
-  buttons.forEach(btn => {
-    if (btn.innerText.includes(value.split(" ")[0])) {
-      btn.classList.add("selected");
-    } else {
-      btn.classList.remove("selected");
-    }
-  });
+  const buttons = pane.querySelectorAll(".wizard-opt-btn");
+  buttons.forEach(btn => btn.classList.remove("selected"));
+
+  if (btnEl) {
+    btnEl.classList.add("selected");
+  } else {
+    buttons.forEach(btn => {
+      const btnVal = btn.getAttribute("data-value") || "";
+      if (btnVal === value || btn.innerText.includes(value.split(" ")[0])) {
+        btn.classList.add("selected");
+      }
+    });
+  }
 
   if (step === 1) {
     wizardState.discipline = value;
-    document.getElementById("btn-step-1").disabled = false;
+    const nextBtn = document.getElementById("btn-step-1");
+    if (nextBtn) {
+      nextBtn.disabled = false;
+      nextBtn.removeAttribute("disabled");
+      nextBtn.classList.add("btn-ready");
+      nextBtn.style.opacity = "1";
+      nextBtn.style.cursor = "pointer";
+      nextBtn.style.pointerEvents = "auto";
+    }
   } else if (step === 2) {
     wizardState.bottleneck = value;
-    document.getElementById("btn-step-2").disabled = false;
+    const nextBtn = document.getElementById("btn-step-2");
+    if (nextBtn) {
+      nextBtn.disabled = false;
+      nextBtn.removeAttribute("disabled");
+      nextBtn.classList.add("btn-ready");
+      nextBtn.style.opacity = "1";
+      nextBtn.style.cursor = "pointer";
+      nextBtn.style.pointerEvents = "auto";
+    }
   } else if (step === 3) {
     wizardState.timeline = value;
-    document.getElementById("btn-step-3").disabled = false;
+    const nextBtn = document.getElementById("btn-step-3");
+    if (nextBtn) {
+      nextBtn.disabled = false;
+      nextBtn.removeAttribute("disabled");
+      nextBtn.classList.add("btn-ready");
+      nextBtn.style.opacity = "1";
+      nextBtn.style.cursor = "pointer";
+      nextBtn.style.pointerEvents = "auto";
+    }
   }
 }
 
 function goToWizardStep(step) {
   for (let i = 1; i <= 4; i++) {
     const pane = document.getElementById(`step-${i}`);
-    if (pane) pane.classList.toggle("active", i === step);
+    if (pane) {
+      if (i === step) {
+        pane.classList.add("active");
+        pane.style.display = "block";
+      } else {
+        pane.classList.remove("active");
+        pane.style.display = "none";
+      }
+    }
   }
 
   const progressMap = { 1: "25%", 2: "50%", 3: "75%", 4: "100%" };
   const progressBar = document.getElementById("wizard-progress-bar");
-  if (progressBar) progressBar.style.width = progressMap[step];
+  if (progressBar) progressBar.style.width = progressMap[step] || "25%";
 
   for (let i = 1; i <= 4; i++) {
     const node = document.getElementById(`node-${i}`);
@@ -442,24 +508,35 @@ function goToWizardStep(step) {
       node.classList.add("active");
     }
   }
+
+  // Smooth scroll to wizard if on mobile
+  const configurator = document.getElementById("configurator");
+  if (configurator && window.innerWidth < 768) {
+    configurator.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
 
 function generateFinalRoadmap() {
-  document.getElementById("summary-discipline").textContent = wizardState.discipline || "General Research";
-  document.getElementById("summary-bottleneck").textContent = wizardState.bottleneck || "PhD Assistance";
-  document.getElementById("summary-timeline").textContent = wizardState.timeline || "Priority Target";
+  const disciplineEl = document.getElementById("summary-discipline");
+  const bottleneckEl = document.getElementById("summary-bottleneck");
+  const timelineEl = document.getElementById("summary-timeline");
+
+  if (disciplineEl) disciplineEl.textContent = wizardState.discipline || "General Research";
+  if (bottleneckEl) bottleneckEl.textContent = wizardState.bottleneck || "PhD Assistance";
+  if (timelineEl) timelineEl.textContent = wizardState.timeline || "Priority Target";
 
   const waMessage = 
 `*PQRS RESEARCH CONSULTATION*
 ----------------------------------------
-🎓 *Academic Field:* ${wizardState.discipline}
-🎯 *Requirement:* ${wizardState.bottleneck}
-⏳ *Timeline:* ${wizardState.timeline}
+🎓 *Academic Field:* ${wizardState.discipline || "General Research"}
+🎯 *Requirement:* ${wizardState.bottleneck || "PhD Assistance"}
+⏳ *Timeline:* ${wizardState.timeline || "Priority Target"}
 ----------------------------------------
 _Hi PQRS team, please review my research requirement and connect me with a mentor._`;
 
   const waUrl = `https://wa.me/${PQRS_PHONE}?text=${encodeURIComponent(waMessage)}`;
-  document.getElementById("whatsapp-wizard-link").href = waUrl;
+  const waLink = document.getElementById("whatsapp-wizard-link");
+  if (waLink) waLink.href = waUrl;
 
   goToWizardStep(4);
 }
@@ -467,9 +544,15 @@ _Hi PQRS team, please review my research requirement and connect me with a mento
 function resetWizard() {
   wizardState = { discipline: "", bottleneck: "", timeline: "" };
   document.querySelectorAll(".wizard-opt-btn").forEach(btn => btn.classList.remove("selected"));
-  document.getElementById("btn-step-1").disabled = true;
-  document.getElementById("btn-step-2").disabled = true;
-  document.getElementById("btn-step-3").disabled = true;
+  
+  const b1 = document.getElementById("btn-step-1");
+  const b2 = document.getElementById("btn-step-2");
+  const b3 = document.getElementById("btn-step-3");
+  
+  if (b1) { b1.disabled = true; b1.setAttribute("disabled", "true"); b1.classList.remove("btn-ready"); }
+  if (b2) { b2.disabled = true; b2.setAttribute("disabled", "true"); b2.classList.remove("btn-ready"); }
+  if (b3) { b3.disabled = true; b3.setAttribute("disabled", "true"); b3.classList.remove("btn-ready"); }
+  
   goToWizardStep(1);
 }
 
@@ -477,7 +560,9 @@ function resetWizard() {
 // 6. ACCORDION FAQ
 // ==========================================================================
 function toggleFAQ(button) {
-  const item = button.parentElement;
+  if (!button) return;
+  const item = button.closest(".faq-item") || button.parentElement;
+  if (!item) return;
   const isActive = item.classList.contains("active");
 
   document.querySelectorAll(".faq-item").forEach(el => el.classList.remove("active"));
@@ -488,19 +573,125 @@ function toggleFAQ(button) {
 }
 
 function filterFAQ() {
-  const query = document.getElementById("faq-search").value.toLowerCase();
+  const input = document.getElementById("faq-search");
+  const query = (input ? input.value : "").toLowerCase();
   const faqItems = document.querySelectorAll(".faq-item");
 
   faqItems.forEach(item => {
-    const text = item.innerText.toLowerCase();
+    const text = (item.innerText || item.textContent || "").toLowerCase();
     item.style.display = text.includes(query) ? "block" : "none";
   });
 }
 
 // ==========================================================================
-// 7. INITIALIZATION
+// 7. GLOBAL WINDOW ATTACHMENT & EVENT DELEGATION (FlexiFunnels Compatibility)
 // ==========================================================================
-document.addEventListener("DOMContentLoaded", () => {
+window.toggleNavHub = toggleNavHub;
+window.closeNavHub = closeNavHub;
+window.toggleMobileNav = toggleMobileNav;
+window.closeMobileNav = closeMobileNav;
+window.filterModules = filterModules;
+window.openModuleModal = openModuleModal;
+window.closeModuleModal = closeModuleModal;
+window.closeModalOnBackdrop = closeModalOnBackdrop;
+window.selectWizardOption = selectWizardOption;
+window.goToWizardStep = goToWizardStep;
+window.generateFinalRoadmap = generateFinalRoadmap;
+window.resetWizard = resetWizard;
+window.toggleFAQ = toggleFAQ;
+window.filterFAQ = filterFAQ;
+window.initNavbar = initNavbar;
+window.initScrollExpansionHero = initScrollExpansionHero;
+
+// Centralized Event Delegation (works even if inline onclick is stripped by FlexiFunnels)
+document.addEventListener("click", function(e) {
+  // Nav Hub Trigger
+  const navTrigger = e.target.closest("#nav-hub-trigger, [data-action='toggle-nav-hub']");
+  if (navTrigger) {
+    e.preventDefault();
+    toggleNavHub(e);
+    return;
+  }
+
+  // Wizard Option Select
+  const wizardOpt = e.target.closest(".wizard-opt-btn, [data-action='wizard-opt']");
+  if (wizardOpt) {
+    e.preventDefault();
+    const step = parseInt(wizardOpt.getAttribute("data-step") || "1", 10);
+    const val = wizardOpt.getAttribute("data-value") || wizardOpt.innerText.trim();
+    selectWizardOption(step, val, wizardOpt);
+    return;
+  }
+
+  // Wizard Step Navigation
+  const stepBtn = e.target.closest("[data-action='wizard-step']");
+  if (stepBtn) {
+    e.preventDefault();
+    if (!stepBtn.disabled && !stepBtn.hasAttribute("disabled")) {
+      const targetStep = parseInt(stepBtn.getAttribute("data-target-step"), 10);
+      if (targetStep === 4) {
+        generateFinalRoadmap();
+      } else {
+        goToWizardStep(targetStep);
+      }
+    }
+    return;
+  }
+
+  // Wizard Reset
+  const resetBtn = e.target.closest("[data-action='wizard-reset']");
+  if (resetBtn) {
+    e.preventDefault();
+    resetWizard();
+    return;
+  }
+
+  // Module Modal Open
+  const moduleCard = e.target.closest(".module-card, [data-action='open-module']");
+  if (moduleCard) {
+    e.preventDefault();
+    const moduleId = moduleCard.getAttribute("data-module-id");
+    if (moduleId) {
+      openModuleModal(parseInt(moduleId, 10));
+    }
+    return;
+  }
+
+  // Modal Close
+  const closeBtn = e.target.closest(".modal-close-btn, [data-action='close-modal']");
+  if (closeBtn) {
+    e.preventDefault();
+    closeModuleModal();
+    return;
+  }
+
+  // FAQ Accordion
+  const faqBtn = e.target.closest(".faq-question-btn, [data-action='toggle-faq']");
+  if (faqBtn) {
+    e.preventDefault();
+    toggleFAQ(faqBtn);
+    return;
+  }
+
+  // Filter Buttons
+  const filterBtn = e.target.closest(".filter-btn, [data-action='filter-modules']");
+  if (filterBtn) {
+    e.preventDefault();
+    const cat = filterBtn.getAttribute("data-filter") || "all";
+    filterModules(cat);
+    return;
+  }
+});
+
+// Self-executing initialization on any lifecycle phase
+function initAll() {
   initNavbar();
   initScrollExpansionHero();
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initAll);
+} else {
+  initAll();
+}
+window.addEventListener("load", initAll);
