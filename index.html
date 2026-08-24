@@ -140,7 +140,7 @@
         </div>
       </div>
 
-      <!-- Metric Strip (3 Clean Blocks, Removed 1-on-1 Mentors Block) -->
+      <!-- Metric Strip -->
       <div class="metrics-strip" id="hero-metrics-strip">
         <div class="metric-card">
           <div class="metric-number">100<span>%</span></div>
@@ -180,7 +180,7 @@
 
       <div class="agitation-cards-grid">
         
-        <!-- Card 1: Crimson Warm Tint (Career Stagnation & Delayed Growth) -->
+        <!-- Card 1: Crimson Warm Tint -->
         <div class="agitation-card-item agitation-card-1">
           <div class="agitation-card-img-wrap">
             <img src="assets/cost_career.jpg" alt="Career Stagnation and Research Delay" class="agitation-card-img">
@@ -192,7 +192,7 @@
           </p>
         </div>
 
-        <!-- Card 2: Purple Royal Tint (Mental Exhaustion & Personal Toll) -->
+        <!-- Card 2: Purple Royal Tint -->
         <div class="agitation-card-item agitation-card-2">
           <div class="agitation-card-img-wrap">
             <img src="assets/cost_exhaustion.jpg" alt="Doctoral Scholar Late-Night Research Overwhelmed" class="agitation-card-img">
@@ -204,7 +204,7 @@
           </p>
         </div>
 
-        <!-- Card 3: Amber Luxury Tint (Cumulative Time & Opportunity Cost) -->
+        <!-- Card 3: Amber Luxury Tint -->
         <div class="agitation-card-item agitation-card-3">
           <div class="agitation-card-img-wrap">
             <img src="assets/cost_time.jpg" alt="Statistical Data and Research Timeline Cost" class="agitation-card-img">
@@ -643,14 +643,14 @@
 
       <div class="wizard-container">
         
-        <!-- Track Nodes -->
+        <!-- Track Nodes (Clickable Stepper) -->
         <div class="wizard-progress-track">
           <div class="wizard-progress-line"></div>
           <div class="wizard-progress-active" id="wizard-progress-bar"></div>
-          <div class="wizard-node active" id="node-1">1</div>
-          <div class="wizard-node" id="node-2">2</div>
-          <div class="wizard-node" id="node-3">3</div>
-          <div class="wizard-node" id="node-4">✓</div>
+          <button type="button" class="wizard-node active" id="node-1" data-action="wizard-step" data-target-step="1" onclick="goToWizardStep(1, event)" title="Step 1: Academic Field">1</button>
+          <button type="button" class="wizard-node" id="node-2" data-action="wizard-step" data-target-step="2" onclick="goToWizardStep(2, event)" title="Step 2: Service Need">2</button>
+          <button type="button" class="wizard-node" id="node-3" data-action="wizard-step" data-target-step="3" onclick="goToWizardStep(3, event)" title="Step 3: Timeline">3</button>
+          <button type="button" class="wizard-node" id="node-4" data-action="wizard-step" data-target-step="4" onclick="generateFinalRoadmap(event)" title="Step 4: Summary & WhatsApp">✓</button>
         </div>
 
         <!-- Step 1: Academic Discipline -->
@@ -716,7 +716,7 @@
           </div>
 
           <div class="wizard-nav-row">
-            <button type="button" class="btn btn-outline" data-action="wizard-step" data-target-step="1" onclick="goToWizardStep(1, event)">← Back</button>
+            <button type="button" class="btn btn-outline" data-action="wizard-step" data-target-step="1" onclick="goToWizardStep(1, event)">← Back to Step 1</button>
             <button type="button" class="btn btn-primary btn-ready" id="btn-step-2" data-action="wizard-step" data-target-step="3" onclick="goToWizardStep(3, event)">Next: Timeline →</button>
           </div>
         </div>
@@ -746,7 +746,7 @@
           </div>
 
           <div class="wizard-nav-row">
-            <button type="button" class="btn btn-outline" data-action="wizard-step" data-target-step="2" onclick="goToWizardStep(2, event)">← Back</button>
+            <button type="button" class="btn btn-outline" data-action="wizard-step" data-target-step="2" onclick="goToWizardStep(2, event)">← Back to Step 2</button>
             <button type="button" class="btn btn-primary btn-ready" id="btn-step-3" data-action="wizard-step" data-target-step="4" onclick="generateFinalRoadmap(event)">Build My Plan →</button>
           </div>
         </div>
@@ -758,18 +758,27 @@
             <p style="font-size: 0.92rem; color: var(--text-dark-secondary);">Tap below to chat directly with our research coordinator on WhatsApp.</p>
           </div>
 
-          <div style="background: var(--bg-warm-light); border-radius: 16px; padding: 20px; border: 1px solid var(--border-light); margin-bottom: 24px;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.88rem;">
+          <div style="background: var(--bg-warm-light); border-radius: 16px; padding: 20px 24px; border: 1px solid var(--border-light); margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.9rem;">
               <span style="color: var(--text-dark-tertiary);">Academic Field:</span>
-              <strong id="summary-discipline" style="color: var(--navy-deep);">Management & Commerce</strong>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <strong id="summary-discipline" style="color: var(--navy-deep);">Management & Commerce</strong>
+                <button type="button" onclick="goToWizardStep(1, event)" style="background: none; border: none; color: var(--gold-dark); font-size: 0.8rem; font-weight: 700; cursor: pointer; text-decoration: underline;">Edit</button>
+              </div>
             </div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.88rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.9rem;">
               <span style="color: var(--text-dark-tertiary);">Requirement:</span>
-              <strong id="summary-bottleneck" style="color: var(--navy-deep);">Full Thesis Writing</strong>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <strong id="summary-bottleneck" style="color: var(--navy-deep);">Full Thesis Writing</strong>
+                <button type="button" onclick="goToWizardStep(2, event)" style="background: none; border: none; color: var(--gold-dark); font-size: 0.8rem; font-weight: 700; cursor: pointer; text-decoration: underline;">Edit</button>
+              </div>
             </div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.88rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem;">
               <span style="color: var(--text-dark-tertiary);">Target Timeline:</span>
-              <strong id="summary-timeline" style="color: var(--navy-deep);">Standard (3–4 Months)</strong>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <strong id="summary-timeline" style="color: var(--navy-deep);">Standard (3–4 Months)</strong>
+                <button type="button" onclick="goToWizardStep(3, event)" style="background: none; border: none; color: var(--gold-dark); font-size: 0.8rem; font-weight: 700; cursor: pointer; text-decoration: underline;">Edit</button>
+              </div>
             </div>
           </div>
 
