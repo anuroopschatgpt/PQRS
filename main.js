@@ -674,6 +674,8 @@ window.initAll = initAll;
 
 // Centralized Event Delegation with execution guards
 document.addEventListener("click", function(e) {
+  if (!e || !e.target || typeof e.target.closest !== "function") return;
+
   // Nav Hub Trigger
   const navTrigger = e.target.closest("#nav-hub-trigger, [data-action='toggle-nav-hub']");
   if (navTrigger) {
