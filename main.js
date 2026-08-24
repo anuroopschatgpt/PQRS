@@ -680,7 +680,7 @@ document.addEventListener("click", function(e) {
   const navTrigger = e.target.closest("#nav-hub-trigger, [data-action='toggle-nav-hub']");
   if (navTrigger) {
     if (!e.__navHandled) {
-      e.preventDefault();
+      if (typeof e.preventDefault === "function") e.preventDefault();
       toggleNavHub(e);
     }
     return;
@@ -690,7 +690,7 @@ document.addEventListener("click", function(e) {
   const wizardOpt = e.target.closest(".wizard-opt-btn, [data-action='wizard-opt']");
   if (wizardOpt) {
     if (!e.__wizardOptHandled) {
-      e.preventDefault();
+      if (typeof e.preventDefault === "function") e.preventDefault();
       const step = parseInt(wizardOpt.getAttribute("data-step") || "1", 10);
       const val = wizardOpt.getAttribute("data-value") || wizardOpt.innerText.trim();
       selectWizardOption(step, val, wizardOpt, e);
@@ -702,7 +702,7 @@ document.addEventListener("click", function(e) {
   const stepBtn = e.target.closest("[data-action='wizard-step']");
   if (stepBtn) {
     if (!e.__wizardStepHandled) {
-      e.preventDefault();
+      if (typeof e.preventDefault === "function") e.preventDefault();
       const targetStep = parseInt(stepBtn.getAttribute("data-target-step"), 10);
       if (targetStep === 4) {
         generateFinalRoadmap(e);
@@ -717,7 +717,7 @@ document.addEventListener("click", function(e) {
   const resetBtn = e.target.closest("[data-action='wizard-reset']");
   if (resetBtn) {
     if (!e.__resetHandled) {
-      e.preventDefault();
+      if (typeof e.preventDefault === "function") e.preventDefault();
       resetWizard(e);
     }
     return;
@@ -727,7 +727,7 @@ document.addEventListener("click", function(e) {
   const moduleCard = e.target.closest(".module-card, [data-action='open-module']");
   if (moduleCard) {
     if (!e.__modalHandled) {
-      e.preventDefault();
+      if (typeof e.preventDefault === "function") e.preventDefault();
       const moduleId = moduleCard.getAttribute("data-module-id");
       if (moduleId) {
         openModuleModal(parseInt(moduleId, 10), e);
@@ -740,7 +740,7 @@ document.addEventListener("click", function(e) {
   const closeBtn = e.target.closest(".modal-close-btn, [data-action='close-modal']");
   if (closeBtn) {
     if (!e.__modalCloseHandled) {
-      e.preventDefault();
+      if (typeof e.preventDefault === "function") e.preventDefault();
       closeModuleModal(e);
     }
     return;
@@ -750,7 +750,7 @@ document.addEventListener("click", function(e) {
   const faqBtn = e.target.closest(".faq-question-btn, [data-action='toggle-faq']");
   if (faqBtn) {
     if (!e.__faqHandled) {
-      e.preventDefault();
+      if (typeof e.preventDefault === "function") e.preventDefault();
       toggleFAQ(faqBtn, e);
     }
     return;
@@ -760,7 +760,7 @@ document.addEventListener("click", function(e) {
   const filterBtn = e.target.closest(".filter-btn, [data-action='filter-modules']");
   if (filterBtn) {
     if (!e.__filterHandled) {
-      e.preventDefault();
+      if (typeof e.preventDefault === "function") e.preventDefault();
       const cat = filterBtn.getAttribute("data-filter") || "all";
       filterModules(cat, e);
     }
