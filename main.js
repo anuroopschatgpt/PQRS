@@ -287,7 +287,11 @@ function initNavbar() {
 }
 
 function toggleNavHub(e) {
-  if (e && e.stopPropagation) e.stopPropagation();
+  if (e) {
+    if (e.__navHandled) return;
+    e.__navHandled = true;
+    if (e.stopPropagation) e.stopPropagation();
+  }
   const trigger = document.getElementById("nav-hub-trigger");
   const dropdown = document.getElementById("nav-hub-dropdown");
   if (trigger && dropdown) {
@@ -300,15 +304,20 @@ function toggleNavHub(e) {
       dropdown.style.pointerEvents = "auto";
       dropdown.style.transform = "translateX(-50%) translateY(0)";
       dropdown.style.display = "flex";
+      dropdown.style.visibility = "visible";
     } else {
       dropdown.style.opacity = "";
       dropdown.style.pointerEvents = "";
       dropdown.style.transform = "";
+      dropdown.style.visibility = "";
     }
   }
 }
 
-function closeNavHub() {
+function closeNavHub(e) {
+  if (e && e.__closeNavHandled) return;
+  if (e) e.__closeNavHandled = true;
+
   const trigger = document.getElementById("nav-hub-trigger");
   const dropdown = document.getElementById("nav-hub-dropdown");
   if (trigger && dropdown) {
@@ -318,11 +327,16 @@ function closeNavHub() {
     dropdown.style.opacity = "";
     dropdown.style.pointerEvents = "";
     dropdown.style.transform = "";
+    dropdown.style.visibility = "";
   }
 }
 
 function toggleMobileNav(e) {
-  if (e && e.stopPropagation) e.stopPropagation();
+  if (e) {
+    if (e.__mobileNavHandled) return;
+    e.__mobileNavHandled = true;
+    if (e.stopPropagation) e.stopPropagation();
+  }
   const toggleBtn = document.getElementById("mobile-toggle");
   const drawer = document.getElementById("mobile-nav-drawer");
   if (toggleBtn && drawer) {
@@ -331,7 +345,10 @@ function toggleMobileNav(e) {
   }
 }
 
-function closeMobileNav() {
+function closeMobileNav(e) {
+  if (e && e.__closeMobileHandled) return;
+  if (e) e.__closeMobileHandled = true;
+
   const toggleBtn = document.getElementById("mobile-toggle");
   const drawer = document.getElementById("mobile-nav-drawer");
   if (toggleBtn && drawer) {
@@ -343,7 +360,11 @@ function closeMobileNav() {
 // ==========================================================================
 // 4. MODULES FILTER & MODAL
 // ==========================================================================
-function filterModules(category) {
+function filterModules(category, e) {
+  if (e) {
+    if (e.__filterHandled) return;
+    e.__filterHandled = true;
+  }
   const cards = document.querySelectorAll(".module-card");
   const buttons = document.querySelectorAll(".filter-btn");
 
@@ -366,7 +387,11 @@ function filterModules(category) {
   });
 }
 
-function openModuleModal(id) {
+function openModuleModal(id, e) {
+  if (e) {
+    if (e.__modalHandled) return;
+    e.__modalHandled = true;
+  }
   const data = MODULE_DATA[id];
   if (!data) return;
 
@@ -402,7 +427,11 @@ function openModuleModal(id) {
   document.body.style.overflow = "hidden";
 }
 
-function closeModuleModal() {
+function closeModuleModal(e) {
+  if (e) {
+    if (e.__modalCloseHandled) return;
+    e.__modalCloseHandled = true;
+  }
   const backdrop = document.getElementById("module-modal-backdrop");
   if (backdrop) {
     backdrop.classList.remove("active");
@@ -413,7 +442,7 @@ function closeModuleModal() {
 
 function closeModalOnBackdrop(e) {
   if (e && e.target && e.target.id === "module-modal-backdrop") {
-    closeModuleModal();
+    closeModuleModal(e);
   }
 }
 
@@ -421,12 +450,17 @@ function closeModalOnBackdrop(e) {
 // 5. ROADMAP BUILDER (Wizard)
 // ==========================================================================
 let wizardState = {
-  discipline: "",
-  bottleneck: "",
-  timeline: ""
+  discipline: "Management & Commerce",
+  bottleneck: "Full Thesis Writing",
+  timeline: "Standard: 3-4 Months"
 };
 
-function selectWizardOption(step, value, btnEl) {
+function selectWizardOption(step, value, btnEl, e) {
+  if (e) {
+    if (e.__wizardOptHandled) return;
+    e.__wizardOptHandled = true;
+  }
+
   const pane = document.getElementById(`step-${step}`);
   if (!pane) return;
 
@@ -480,31 +514,42 @@ function selectWizardOption(step, value, btnEl) {
   }
 }
 
-function goToWizardStep(step) {
+function goToWizardStep(step, e) {
+  if (e) {
+    if (e.__wizardStepHandled) return;
+    e.__wizardStepHandled = true;
+  }
+
+  const targetStep = parseInt(step, 10) || 1;
+
   for (let i = 1; i <= 4; i++) {
     const pane = document.getElementById(`step-${i}`);
     if (pane) {
-      if (i === step) {
+      if (i === targetStep) {
         pane.classList.add("active");
         pane.style.display = "block";
+        pane.style.visibility = "visible";
+        pane.style.opacity = "1";
       } else {
         pane.classList.remove("active");
         pane.style.display = "none";
+        pane.style.visibility = "hidden";
+        pane.style.opacity = "0";
       }
     }
   }
 
   const progressMap = { 1: "25%", 2: "50%", 3: "75%", 4: "100%" };
   const progressBar = document.getElementById("wizard-progress-bar");
-  if (progressBar) progressBar.style.width = progressMap[step] || "25%";
+  if (progressBar) progressBar.style.width = progressMap[targetStep] || "25%";
 
   for (let i = 1; i <= 4; i++) {
     const node = document.getElementById(`node-${i}`);
     if (!node) continue;
     node.classList.remove("active", "completed");
-    if (i < step) {
+    if (i < targetStep) {
       node.classList.add("completed");
-    } else if (i === step) {
+    } else if (i === targetStep) {
       node.classList.add("active");
     }
   }
@@ -516,21 +561,30 @@ function goToWizardStep(step) {
   }
 }
 
-function generateFinalRoadmap() {
+function generateFinalRoadmap(e) {
+  if (e) {
+    if (e.__roadmapHandled) return;
+    e.__roadmapHandled = true;
+  }
+
   const disciplineEl = document.getElementById("summary-discipline");
   const bottleneckEl = document.getElementById("summary-bottleneck");
   const timelineEl = document.getElementById("summary-timeline");
 
-  if (disciplineEl) disciplineEl.textContent = wizardState.discipline || "General Research";
-  if (bottleneckEl) bottleneckEl.textContent = wizardState.bottleneck || "PhD Assistance";
-  if (timelineEl) timelineEl.textContent = wizardState.timeline || "Priority Target";
+  const disc = wizardState.discipline || "Management & Commerce";
+  const bneck = wizardState.bottleneck || "Full Thesis Writing";
+  const tline = wizardState.timeline || "Standard: 3-4 Months";
+
+  if (disciplineEl) disciplineEl.textContent = disc;
+  if (bottleneckEl) bottleneckEl.textContent = bneck;
+  if (timelineEl) timelineEl.textContent = tline;
 
   const waMessage = 
 `*PQRS RESEARCH CONSULTATION*
 ----------------------------------------
-🎓 *Academic Field:* ${wizardState.discipline || "General Research"}
-🎯 *Requirement:* ${wizardState.bottleneck || "PhD Assistance"}
-⏳ *Timeline:* ${wizardState.timeline || "Priority Target"}
+🎓 *Academic Field:* ${disc}
+🎯 *Requirement:* ${bneck}
+⏳ *Timeline:* ${tline}
 ----------------------------------------
 _Hi PQRS team, please review my research requirement and connect me with a mentor._`;
 
@@ -541,33 +595,47 @@ _Hi PQRS team, please review my research requirement and connect me with a mento
   goToWizardStep(4);
 }
 
-function resetWizard() {
-  wizardState = { discipline: "", bottleneck: "", timeline: "" };
-  document.querySelectorAll(".wizard-opt-btn").forEach(btn => btn.classList.remove("selected"));
-  
-  const b1 = document.getElementById("btn-step-1");
-  const b2 = document.getElementById("btn-step-2");
-  const b3 = document.getElementById("btn-step-3");
-  
-  if (b1) { b1.disabled = true; b1.setAttribute("disabled", "true"); b1.classList.remove("btn-ready"); }
-  if (b2) { b2.disabled = true; b2.setAttribute("disabled", "true"); b2.classList.remove("btn-ready"); }
-  if (b3) { b3.disabled = true; b3.setAttribute("disabled", "true"); b3.classList.remove("btn-ready"); }
-  
+function resetWizard(e) {
+  if (e) {
+    if (e.__resetHandled) return;
+    e.__resetHandled = true;
+  }
+
+  wizardState = {
+    discipline: "Management & Commerce",
+    bottleneck: "Full Thesis Writing",
+    timeline: "Standard: 3-4 Months"
+  };
+
+  // Re-select defaults
+  const step1Btns = document.querySelectorAll("#step-1 .wizard-opt-btn");
+  step1Btns.forEach((btn, idx) => btn.classList.toggle("selected", idx === 0));
+
+  const step2Btns = document.querySelectorAll("#step-2 .wizard-opt-btn");
+  step2Btns.forEach((btn, idx) => btn.classList.toggle("selected", idx === 3));
+
+  const step3Btns = document.querySelectorAll("#step-3 .wizard-opt-btn");
+  step3Btns.forEach((btn, idx) => btn.classList.toggle("selected", idx === 1));
+
   goToWizardStep(1);
 }
 
 // ==========================================================================
 // 6. ACCORDION FAQ
 // ==========================================================================
-function toggleFAQ(button) {
+function toggleFAQ(button, e) {
+  if (e) {
+    if (e.__faqHandled) return;
+    e.__faqHandled = true;
+  }
   if (!button) return;
   const item = button.closest(".faq-item") || button.parentElement;
   if (!item) return;
-  const isActive = item.classList.contains("active");
+  const isAlreadyActive = item.classList.contains("active");
 
   document.querySelectorAll(".faq-item").forEach(el => el.classList.remove("active"));
 
-  if (!isActive) {
+  if (!isAlreadyActive) {
     item.classList.add("active");
   }
 }
@@ -584,7 +652,7 @@ function filterFAQ() {
 }
 
 // ==========================================================================
-// 7. GLOBAL WINDOW ATTACHMENT & EVENT DELEGATION (FlexiFunnels Compatibility)
+// 7. GLOBAL WINDOW ATTACHMENT & CENTRALIZED DELEGATION
 // ==========================================================================
 window.toggleNavHub = toggleNavHub;
 window.closeNavHub = closeNavHub;
@@ -602,37 +670,42 @@ window.toggleFAQ = toggleFAQ;
 window.filterFAQ = filterFAQ;
 window.initNavbar = initNavbar;
 window.initScrollExpansionHero = initScrollExpansionHero;
+window.initAll = initAll;
 
-// Centralized Event Delegation (works even if inline onclick is stripped by FlexiFunnels)
+// Centralized Event Delegation with execution guards
 document.addEventListener("click", function(e) {
   // Nav Hub Trigger
   const navTrigger = e.target.closest("#nav-hub-trigger, [data-action='toggle-nav-hub']");
   if (navTrigger) {
-    e.preventDefault();
-    toggleNavHub(e);
+    if (!e.__navHandled) {
+      e.preventDefault();
+      toggleNavHub(e);
+    }
     return;
   }
 
   // Wizard Option Select
   const wizardOpt = e.target.closest(".wizard-opt-btn, [data-action='wizard-opt']");
   if (wizardOpt) {
-    e.preventDefault();
-    const step = parseInt(wizardOpt.getAttribute("data-step") || "1", 10);
-    const val = wizardOpt.getAttribute("data-value") || wizardOpt.innerText.trim();
-    selectWizardOption(step, val, wizardOpt);
+    if (!e.__wizardOptHandled) {
+      e.preventDefault();
+      const step = parseInt(wizardOpt.getAttribute("data-step") || "1", 10);
+      const val = wizardOpt.getAttribute("data-value") || wizardOpt.innerText.trim();
+      selectWizardOption(step, val, wizardOpt, e);
+    }
     return;
   }
 
   // Wizard Step Navigation
   const stepBtn = e.target.closest("[data-action='wizard-step']");
   if (stepBtn) {
-    e.preventDefault();
-    if (!stepBtn.disabled && !stepBtn.hasAttribute("disabled")) {
+    if (!e.__wizardStepHandled) {
+      e.preventDefault();
       const targetStep = parseInt(stepBtn.getAttribute("data-target-step"), 10);
       if (targetStep === 4) {
-        generateFinalRoadmap();
+        generateFinalRoadmap(e);
       } else {
-        goToWizardStep(targetStep);
+        goToWizardStep(targetStep, e);
       }
     }
     return;
@@ -641,18 +714,22 @@ document.addEventListener("click", function(e) {
   // Wizard Reset
   const resetBtn = e.target.closest("[data-action='wizard-reset']");
   if (resetBtn) {
-    e.preventDefault();
-    resetWizard();
+    if (!e.__resetHandled) {
+      e.preventDefault();
+      resetWizard(e);
+    }
     return;
   }
 
   // Module Modal Open
   const moduleCard = e.target.closest(".module-card, [data-action='open-module']");
   if (moduleCard) {
-    e.preventDefault();
-    const moduleId = moduleCard.getAttribute("data-module-id");
-    if (moduleId) {
-      openModuleModal(parseInt(moduleId, 10));
+    if (!e.__modalHandled) {
+      e.preventDefault();
+      const moduleId = moduleCard.getAttribute("data-module-id");
+      if (moduleId) {
+        openModuleModal(parseInt(moduleId, 10), e);
+      }
     }
     return;
   }
@@ -660,25 +737,31 @@ document.addEventListener("click", function(e) {
   // Modal Close
   const closeBtn = e.target.closest(".modal-close-btn, [data-action='close-modal']");
   if (closeBtn) {
-    e.preventDefault();
-    closeModuleModal();
+    if (!e.__modalCloseHandled) {
+      e.preventDefault();
+      closeModuleModal(e);
+    }
     return;
   }
 
   // FAQ Accordion
   const faqBtn = e.target.closest(".faq-question-btn, [data-action='toggle-faq']");
   if (faqBtn) {
-    e.preventDefault();
-    toggleFAQ(faqBtn);
+    if (!e.__faqHandled) {
+      e.preventDefault();
+      toggleFAQ(faqBtn, e);
+    }
     return;
   }
 
   // Filter Buttons
   const filterBtn = e.target.closest(".filter-btn, [data-action='filter-modules']");
   if (filterBtn) {
-    e.preventDefault();
-    const cat = filterBtn.getAttribute("data-filter") || "all";
-    filterModules(cat);
+    if (!e.__filterHandled) {
+      e.preventDefault();
+      const cat = filterBtn.getAttribute("data-filter") || "all";
+      filterModules(cat, e);
+    }
     return;
   }
 });
