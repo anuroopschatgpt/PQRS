@@ -28,7 +28,7 @@
 
         <!-- Interactive Expandable Clubbed Navigation Hub (Clean Typography, No Icons) -->
         <div class="nav-hub-wrapper" id="nav-hub-wrapper">
-          <button class="nav-hub-trigger" id="nav-hub-trigger" onclick="toggleNavHub()" aria-expanded="false">
+          <button type="button" class="nav-hub-trigger" id="nav-hub-trigger" data-action="toggle-nav-hub" onclick="toggleNavHub(event)" aria-expanded="false">
             <span>Explore Sections</span>
             <span class="hub-chevron">▾</span>
           </button>
@@ -70,7 +70,7 @@
             <span>WhatsApp</span>
           </a>
 
-          <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu" onclick="toggleMobileNav()">
+          <button type="button" class="mobile-toggle" id="mobile-toggle" data-action="toggle-mobile-nav" aria-label="Toggle Menu" onclick="toggleMobileNav(event)">
             <span></span>
             <span></span>
             <span></span>
@@ -304,18 +304,18 @@
 
       <!-- Filter Buttons -->
       <div class="catalog-filter-bar">
-        <button class="filter-btn active" onclick="filterModules('all')">All 12 Services</button>
-        <button class="filter-btn" onclick="filterModules('topic')">Topic & Proposal</button>
-        <button class="filter-btn" onclick="filterModules('data')">Data & Statistics</button>
-        <button class="filter-btn" onclick="filterModules('writing')">Thesis Writing</button>
-        <button class="filter-btn" onclick="filterModules('publish')">Review & Publishing</button>
+        <button type="button" class="filter-btn active" data-action="filter-modules" data-filter="all" onclick="filterModules('all')">All 12 Services</button>
+        <button type="button" class="filter-btn" data-action="filter-modules" data-filter="topic" onclick="filterModules('topic')">Topic & Proposal</button>
+        <button type="button" class="filter-btn" data-action="filter-modules" data-filter="data" onclick="filterModules('data')">Data & Statistics</button>
+        <button type="button" class="filter-btn" data-action="filter-modules" data-filter="writing" onclick="filterModules('writing')">Thesis Writing</button>
+        <button type="button" class="filter-btn" data-action="filter-modules" data-filter="publish" onclick="filterModules('publish')">Review & Publishing</button>
       </div>
 
       <!-- 12 Modules Grid without icons -->
       <div class="modules-grid" id="modules-grid-container">
 
         <!-- 01: Royal Purple Tint -->
-        <div class="module-card module-card-purple" data-category="topic" onclick="openModuleModal(1)">
+        <div class="module-card module-card-purple" data-category="topic" data-module-id="1" data-action="open-module" onclick="openModuleModal(1)">
           <div>
             <div class="module-header-row">
               <span class="module-category-pill">Topic & Proposal</span>
@@ -334,7 +334,7 @@
         </div>
 
         <!-- 02: Royal Purple Tint -->
-        <div class="module-card module-card-purple" data-category="topic" onclick="openModuleModal(2)">
+        <div class="module-card module-card-purple" data-category="topic" data-module-id="2" data-action="open-module" onclick="openModuleModal(2)">
           <div>
             <div class="module-header-row">
               <span class="module-category-pill">Topic & Proposal</span>
@@ -353,7 +353,7 @@
         </div>
 
         <!-- 03: Royal Purple Tint -->
-        <div class="module-card module-card-purple" data-category="topic" onclick="openModuleModal(3)">
+        <div class="module-card module-card-purple" data-category="topic" data-module-id="3" data-action="open-module" onclick="openModuleModal(3)">
           <div>
             <div class="module-header-row">
               <span class="module-category-pill">Topic & Proposal</span>
@@ -372,7 +372,7 @@
         </div>
 
         <!-- 04: Ocean Emerald Tint -->
-        <div class="module-card module-card-emerald" data-category="writing" onclick="openModuleModal(4)">
+        <div class="module-card module-card-emerald" data-category="writing" data-module-id="4" data-action="open-module" onclick="openModuleModal(4)">
           <div>
             <div class="module-header-row">
               <span class="module-category-pill">Synopsis</span>
@@ -391,7 +391,7 @@
         </div>
 
         <!-- 05: Ocean Emerald Tint -->
-        <div class="module-card module-card-emerald" data-category="data" onclick="openModuleModal(5)">
+        <div class="module-card module-card-emerald" data-category="data" data-module-id="5" data-action="open-module" onclick="openModuleModal(5)">
           <div>
             <div class="module-header-row">
               <span class="module-category-pill">Methodology</span>
@@ -410,7 +410,7 @@
         </div>
 
         <!-- 06: Ocean Emerald Tint -->
-        <div class="module-card module-card-emerald" data-category="data" onclick="openModuleModal(6)">
+        <div class="module-card module-card-emerald" data-category="data" data-module-id="6" data-action="open-module" onclick="openModuleModal(6)">
           <div>
             <div class="module-header-row">
               <span class="module-category-pill">Data Collection</span>
@@ -429,7 +429,7 @@
         </div>
 
         <!-- 07: Sapphire Blue Tint -->
-        <div class="module-card module-card-blue" data-category="data" onclick="openModuleModal(7)">
+        <div class="module-card module-card-blue" data-category="data" data-module-id="7" data-action="open-module" onclick="openModuleModal(7)">
           <div>
             <div class="module-header-row">
               <span class="module-category-pill">Data & Statistics</span>
@@ -448,7 +448,7 @@
         </div>
 
         <!-- 08: Sapphire Blue Tint -->
-        <div class="module-card module-card-blue" data-category="data" onclick="openModuleModal(8)">
+        <div class="module-card module-card-blue" data-category="data" data-module-id="8" data-action="open-module" onclick="openModuleModal(8)">
           <div>
             <div class="module-header-row">
               <span class="module-category-pill">Data & Statistics</span>
@@ -467,7 +467,7 @@
         </div>
 
         <!-- 09: Luxury Amber Tint -->
-        <div class="module-card module-card-amber" data-category="writing" onclick="openModuleModal(9)">
+        <div class="module-card module-card-amber" data-category="writing" data-module-id="9" data-action="open-module" onclick="openModuleModal(9)">
           <div>
             <div class="module-header-row">
               <span class="module-category-pill">Thesis Writing</span>
@@ -486,7 +486,7 @@
         </div>
 
         <!-- 10: Luxury Amber Tint -->
-        <div class="module-card module-card-amber" data-category="writing" onclick="openModuleModal(10)">
+        <div class="module-card module-card-amber" data-category="writing" data-module-id="10" data-action="open-module" onclick="openModuleModal(10)">
           <div>
             <div class="module-header-row">
               <span class="module-category-pill">Formatting</span>
@@ -505,7 +505,7 @@
         </div>
 
         <!-- 11: Crimson Warm Tint -->
-        <div class="module-card module-card-crimson" data-category="publish" onclick="openModuleModal(11)">
+        <div class="module-card module-card-crimson" data-category="publish" data-module-id="11" data-action="open-module" onclick="openModuleModal(11)">
           <div>
             <div class="module-header-row">
               <span class="module-category-pill">Plagiarism Check</span>
@@ -524,7 +524,7 @@
         </div>
 
         <!-- 12: Crimson Warm Tint -->
-        <div class="module-card module-card-crimson" data-category="publish" onclick="openModuleModal(12)">
+        <div class="module-card module-card-crimson" data-category="publish" data-module-id="12" data-action="open-module" onclick="openModuleModal(12)">
           <div>
             <div class="module-header-row">
               <span class="module-category-pill">Publication</span>
@@ -659,19 +659,19 @@
           <p style="font-size: 0.9rem; color: var(--text-dark-secondary);">Choose your broad discipline to match with the right subject mentor:</p>
           
           <div class="wizard-options-grid">
-            <button class="wizard-opt-btn" onclick="selectWizardOption(1, 'Management & Commerce')">
+            <button type="button" class="wizard-opt-btn" data-action="wizard-opt" data-step="1" data-value="Management & Commerce" onclick="selectWizardOption(1, 'Management & Commerce', this)">
               <span>Management & Commerce</span>
               <span>→</span>
             </button>
-            <button class="wizard-opt-btn" onclick="selectWizardOption(1, 'Engineering & Tech')">
+            <button type="button" class="wizard-opt-btn" data-action="wizard-opt" data-step="1" data-value="Engineering & Tech" onclick="selectWizardOption(1, 'Engineering & Tech', this)">
               <span>Engineering & Tech</span>
               <span>→</span>
             </button>
-            <button class="wizard-opt-btn" onclick="selectWizardOption(1, 'Sciences & Pharmacy')">
+            <button type="button" class="wizard-opt-btn" data-action="wizard-opt" data-step="1" data-value="Sciences & Pharmacy" onclick="selectWizardOption(1, 'Sciences & Pharmacy', this)">
               <span>Sciences / Pharmacy</span>
               <span>→</span>
             </button>
-            <button class="wizard-opt-btn" onclick="selectWizardOption(1, 'Social Sciences & Humanities')">
+            <button type="button" class="wizard-opt-btn" data-action="wizard-opt" data-step="1" data-value="Social Sciences & Humanities" onclick="selectWizardOption(1, 'Social Sciences & Humanities', this)">
               <span>Social Sciences & Humanities</span>
               <span>→</span>
             </button>
@@ -679,7 +679,7 @@
 
           <div class="wizard-nav-row">
             <div></div>
-            <button class="btn btn-primary" id="btn-step-1" disabled onclick="goToWizardStep(2)">Next: Select Need →</button>
+            <button type="button" class="btn btn-primary" id="btn-step-1" data-action="wizard-step" data-target-step="2" disabled onclick="goToWizardStep(2)">Next: Select Need →</button>
           </div>
         </div>
 
@@ -689,35 +689,35 @@
           <p style="font-size: 0.9rem; color: var(--text-dark-secondary);">Select where you need the most guidance right now:</p>
           
           <div class="wizard-options-grid">
-            <button class="wizard-opt-btn" onclick="selectWizardOption(2, 'Topic Selection & Proposal')">
+            <button type="button" class="wizard-opt-btn" data-action="wizard-opt" data-step="2" data-value="Topic Selection & Proposal" onclick="selectWizardOption(2, 'Topic Selection & Proposal', this)">
               <span>Topic Selection & Proposal</span>
               <span>→</span>
             </button>
-            <button class="wizard-opt-btn" onclick="selectWizardOption(2, 'Literature Review')">
+            <button type="button" class="wizard-opt-btn" data-action="wizard-opt" data-step="2" data-value="Literature Review" onclick="selectWizardOption(2, 'Literature Review', this)">
               <span>Literature Review</span>
               <span>→</span>
             </button>
-            <button class="wizard-opt-btn" onclick="selectWizardOption(2, 'Data & Statistical Analysis')">
+            <button type="button" class="wizard-opt-btn" data-action="wizard-opt" data-step="2" data-value="Data & Statistical Analysis" onclick="selectWizardOption(2, 'Data & Statistical Analysis', this)">
               <span>SPSS / R Data Analysis</span>
               <span>→</span>
             </button>
-            <button class="wizard-opt-btn" onclick="selectWizardOption(2, 'Full Thesis Writing')">
+            <button type="button" class="wizard-opt-btn" data-action="wizard-opt" data-step="2" data-value="Full Thesis Writing" onclick="selectWizardOption(2, 'Full Thesis Writing', this)">
               <span>Thesis Writing & Formatting</span>
               <span>→</span>
             </button>
-            <button class="wizard-opt-btn" onclick="selectWizardOption(2, 'Plagiarism & Turnitin Check')">
+            <button type="button" class="wizard-opt-btn" data-action="wizard-opt" data-step="2" data-value="Plagiarism & Turnitin Check" onclick="selectWizardOption(2, 'Plagiarism & Turnitin Check', this)">
               <span>Plagiarism & Turnitin Report</span>
               <span>→</span>
             </button>
-            <button class="wizard-opt-btn" onclick="selectWizardOption(2, 'Journal Paper Publication')">
+            <button type="button" class="wizard-opt-btn" data-action="wizard-opt" data-step="2" data-value="Journal Paper Publication" onclick="selectWizardOption(2, 'Journal Paper Publication', this)">
               <span>Paper Publication Support</span>
               <span>→</span>
             </button>
           </div>
 
           <div class="wizard-nav-row">
-            <button class="btn btn-outline" onclick="goToWizardStep(1)">← Back</button>
-            <button class="btn btn-primary" id="btn-step-2" disabled onclick="goToWizardStep(3)">Next: Timeline →</button>
+            <button type="button" class="btn btn-outline" data-action="wizard-step" data-target-step="1" onclick="goToWizardStep(1)">← Back</button>
+            <button type="button" class="btn btn-primary" id="btn-step-2" data-action="wizard-step" data-target-step="3" disabled onclick="goToWizardStep(3)">Next: Timeline →</button>
           </div>
         </div>
 
@@ -727,27 +727,27 @@
           <p style="font-size: 0.9rem; color: var(--text-dark-secondary);">When do you plan to submit your chapters?</p>
           
           <div class="wizard-options-grid">
-            <button class="wizard-opt-btn" onclick="selectWizardOption(3, 'Urgent: 1-2 Months')">
+            <button type="button" class="wizard-opt-btn" data-action="wizard-opt" data-step="3" data-value="Urgent: 1-2 Months" onclick="selectWizardOption(3, 'Urgent: 1-2 Months', this)">
               <span>Urgent (1–2 Months)</span>
               <span>⚡ Fast</span>
             </button>
-            <button class="wizard-opt-btn" onclick="selectWizardOption(3, 'Standard: 3-4 Months')">
+            <button type="button" class="wizard-opt-btn" data-action="wizard-opt" data-step="3" data-value="Standard: 3-4 Months" onclick="selectWizardOption(3, 'Standard: 3-4 Months', this)">
               <span>Standard (3–4 Months)</span>
               <span>★ Popular</span>
             </button>
-            <button class="wizard-opt-btn" onclick="selectWizardOption(3, 'Comprehensive: 6+ Months')">
+            <button type="button" class="wizard-opt-btn" data-action="wizard-opt" data-step="3" data-value="Comprehensive: 6+ Months" onclick="selectWizardOption(3, 'Comprehensive: 6+ Months', this)">
               <span>Comprehensive (6+ Months)</span>
               <span>🛡️ Structured</span>
             </button>
-            <button class="wizard-opt-btn" onclick="selectWizardOption(3, 'Next Semester Submission')">
+            <button type="button" class="wizard-opt-btn" data-action="wizard-opt" data-step="3" data-value="Next Semester Submission" onclick="selectWizardOption(3, 'Next Semester Submission', this)">
               <span>Next Semester</span>
               <span>📅 Scheduled</span>
             </button>
           </div>
 
           <div class="wizard-nav-row">
-            <button class="btn btn-outline" onclick="goToWizardStep(2)">← Back</button>
-            <button class="btn btn-primary" id="btn-step-3" disabled onclick="generateFinalRoadmap()">Build My Plan →</button>
+            <button type="button" class="btn btn-outline" data-action="wizard-step" data-target-step="2" onclick="goToWizardStep(2)">← Back</button>
+            <button type="button" class="btn btn-primary" id="btn-step-3" data-action="wizard-step" data-target-step="4" disabled onclick="generateFinalRoadmap()">Build My Plan →</button>
           </div>
         </div>
 
@@ -778,7 +778,7 @@
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.03-1.24-.75-.67-1.26-1.5-1.41-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.22.89 2.41 1.02 2.58.13.17 1.76 2.68 4.25 3.76.59.26 1.05.41 1.41.53.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.12-.22-.19-.47-.31z"/></svg>
               <span>Chat on WhatsApp (+91 7799956799)</span>
             </a>
-            <button class="btn btn-outline" onclick="resetWizard()" style="font-size: 0.82rem; padding: 8px;">Start Over</button>
+            <button type="button" class="btn btn-outline" data-action="wizard-reset" onclick="resetWizard()" style="font-size: 0.82rem; padding: 8px;">Start Over</button>
           </div>
         </div>
 
@@ -856,7 +856,7 @@
         <input type="text" id="faq-search" class="faq-search-input" placeholder="Search questions (e.g. Plagiarism, Turnitin, Timelines, Chapters)..." oninput="filterFAQ()">
 
         <div class="faq-item active">
-          <button class="faq-question-btn" onclick="toggleFAQ(this)">
+          <button type="button" class="faq-question-btn" data-action="toggle-faq" onclick="toggleFAQ(this)">
             <span>How does PQRS ensure original, plagiarism-free work?</span>
             <span class="faq-toggle-icon">+</span>
           </button>
@@ -866,7 +866,7 @@
         </div>
 
         <div class="faq-item">
-          <button class="faq-question-btn" onclick="toggleFAQ(this)">
+          <button type="button" class="faq-question-btn" data-action="toggle-faq" onclick="toggleFAQ(this)">
             <span>Is my personal information and research data secure?</span>
             <span class="faq-toggle-icon">+</span>
           </button>
@@ -876,7 +876,7 @@
         </div>
 
         <div class="faq-item">
-          <button class="faq-question-btn" onclick="toggleFAQ(this)">
+          <button type="button" class="faq-question-btn" data-action="toggle-faq" onclick="toggleFAQ(this)">
             <span>Which statistical software do you assist with?</span>
             <span class="faq-toggle-icon">+</span>
           </button>
@@ -886,7 +886,7 @@
         </div>
 
         <div class="faq-item">
-          <button class="faq-question-btn" onclick="toggleFAQ(this)">
+          <button type="button" class="faq-question-btn" data-action="toggle-faq" onclick="toggleFAQ(this)">
             <span>Can I get help with individual chapters only?</span>
             <span class="faq-toggle-icon">+</span>
           </button>
@@ -896,7 +896,7 @@
         </div>
 
         <div class="faq-item">
-          <button class="faq-question-btn" onclick="toggleFAQ(this)">
+          <button type="button" class="faq-question-btn" data-action="toggle-faq" onclick="toggleFAQ(this)">
             <span>How quickly can I get started with PQRS?</span>
             <span class="faq-toggle-icon">+</span>
           </button>
@@ -915,7 +915,7 @@
        ========================================================================== -->
   <div class="module-modal-backdrop" id="module-modal-backdrop" onclick="closeModalOnBackdrop(event)">
     <div class="module-modal-card">
-      <button class="modal-close-btn" onclick="closeModuleModal()">✕</button>
+      <button type="button" class="modal-close-btn" data-action="close-modal" onclick="closeModuleModal()">✕</button>
       <span class="module-num" id="modal-num">01</span>
       <h3 style="font-size: 1.6rem; color: var(--navy-deep); margin-bottom: 12px;" id="modal-title">Service Title</h3>
       <p style="color: var(--text-dark-secondary); margin-bottom: 20px; font-size: 0.95rem; line-height: 1.55;" id="modal-desc">Service description.</p>
