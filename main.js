@@ -449,7 +449,7 @@ function closeModalOnBackdrop(e) {
 // ==========================================================================
 // 5. ROADMAP BUILDER (Wizard)
 // ==========================================================================
-let wizardState = {
+window.pqrsWizardState = window.pqrsWizardState || {
   discipline: "Management & Commerce",
   bottleneck: "Full Thesis Writing",
   timeline: "Standard: 3-4 Months"
@@ -461,25 +461,32 @@ function selectWizardOption(step, value, btnEl, e) {
     e.__wizardOptHandled = true;
   }
 
+  const state = window.pqrsWizardState || {
+    discipline: "Management & Commerce",
+    bottleneck: "Full Thesis Writing",
+    timeline: "Standard: 3-4 Months"
+  };
+  window.pqrsWizardState = state;
+
   const pane = document.getElementById(`step-${step}`);
-  if (!pane) return;
+  if (pane) {
+    const buttons = pane.querySelectorAll(".wizard-opt-btn");
+    buttons.forEach(btn => btn.classList.remove("selected"));
 
-  const buttons = pane.querySelectorAll(".wizard-opt-btn");
-  buttons.forEach(btn => btn.classList.remove("selected"));
-
-  if (btnEl) {
-    btnEl.classList.add("selected");
-  } else {
-    buttons.forEach(btn => {
-      const btnVal = btn.getAttribute("data-value") || "";
-      if (btnVal === value || btn.innerText.includes(value.split(" ")[0])) {
-        btn.classList.add("selected");
-      }
-    });
+    if (btnEl) {
+      btnEl.classList.add("selected");
+    } else {
+      buttons.forEach(btn => {
+        const btnVal = btn.getAttribute("data-value") || "";
+        if (btnVal === value || btn.innerText.includes(value.split(" ")[0])) {
+          btn.classList.add("selected");
+        }
+      });
+    }
   }
 
   if (step === 1) {
-    wizardState.discipline = value;
+    state.discipline = value;
     const nextBtn = document.getElementById("btn-step-1");
     if (nextBtn) {
       nextBtn.disabled = false;
@@ -493,7 +500,7 @@ function selectWizardOption(step, value, btnEl, e) {
       goToWizardStep(2);
     }, 160);
   } else if (step === 2) {
-    wizardState.bottleneck = value;
+    state.bottleneck = value;
     const nextBtn = document.getElementById("btn-step-2");
     if (nextBtn) {
       nextBtn.disabled = false;
@@ -507,7 +514,7 @@ function selectWizardOption(step, value, btnEl, e) {
       goToWizardStep(3);
     }, 160);
   } else if (step === 3) {
-    wizardState.timeline = value;
+    state.timeline = value;
     const nextBtn = document.getElementById("btn-step-3");
     if (nextBtn) {
       nextBtn.disabled = false;
@@ -565,13 +572,19 @@ function goToWizardStep(step, e) {
 
   // If navigating to step 4, update summary fields and WhatsApp link
   if (targetStep === 4) {
+    const state = window.pqrsWizardState || {
+      discipline: "Management & Commerce",
+      bottleneck: "Full Thesis Writing",
+      timeline: "Standard: 3-4 Months"
+    };
+
     const disciplineEl = document.getElementById("summary-discipline");
     const bottleneckEl = document.getElementById("summary-bottleneck");
     const timelineEl = document.getElementById("summary-timeline");
 
-    const disc = wizardState.discipline || "Management & Commerce";
-    const bneck = wizardState.bottleneck || "Full Thesis Writing";
-    const tline = wizardState.timeline || "Standard: 3-4 Months";
+    const disc = state.discipline || "Management & Commerce";
+    const bneck = state.bottleneck || "Full Thesis Writing";
+    const tline = state.timeline || "Standard: 3-4 Months";
 
     if (disciplineEl) disciplineEl.textContent = disc;
     if (bottleneckEl) bottleneckEl.textContent = bneck;
@@ -604,13 +617,19 @@ function generateFinalRoadmap(e) {
     e.__roadmapHandled = true;
   }
 
+  const state = window.pqrsWizardState || {
+    discipline: "Management & Commerce",
+    bottleneck: "Full Thesis Writing",
+    timeline: "Standard: 3-4 Months"
+  };
+
   const disciplineEl = document.getElementById("summary-discipline");
   const bottleneckEl = document.getElementById("summary-bottleneck");
   const timelineEl = document.getElementById("summary-timeline");
 
-  const disc = wizardState.discipline || "Management & Commerce";
-  const bneck = wizardState.bottleneck || "Full Thesis Writing";
-  const tline = wizardState.timeline || "Standard: 3-4 Months";
+  const disc = state.discipline || "Management & Commerce";
+  const bneck = state.bottleneck || "Full Thesis Writing";
+  const tline = state.timeline || "Standard: 3-4 Months";
 
   if (disciplineEl) disciplineEl.textContent = disc;
   if (bottleneckEl) bottleneckEl.textContent = bneck;
@@ -638,7 +657,7 @@ function resetWizard(e) {
     e.__resetHandled = true;
   }
 
-  wizardState = {
+  window.pqrsWizardState = {
     discipline: "Management & Commerce",
     bottleneck: "Full Thesis Writing",
     timeline: "Standard: 3-4 Months"
