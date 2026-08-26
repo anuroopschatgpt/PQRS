@@ -145,6 +145,7 @@ window.MODULE_DATA = MODULE_DATA;
 function initScrollExpansionHero() {
   try {
     var hero = document.getElementById('hero');
+    var stage = document.getElementById('hero-interactive-stage');
     var card = document.getElementById('scroll-expand-card');
     var line1 = document.getElementById('hero-title-line-1');
     var line2 = document.getElementById('hero-title-line-2');
@@ -156,7 +157,7 @@ function initScrollExpansionHero() {
     var metricsStrip = document.getElementById('hero-metrics-strip');
     var bgLayer = document.getElementById('hero-bg-layer');
 
-    if (!hero || !card) return;
+    if (!hero || !card || !stage) return;
 
     var animFrame = null;
     var currentProgress = 0;
@@ -166,47 +167,78 @@ function initScrollExpansionHero() {
       var rect = hero.getBoundingClientRect();
       var scrollDist = hero.offsetHeight - window.innerHeight;
       if (scrollDist <= 0) return 0;
-      var progress = -rect.top / scrollDist;
-      return Math.min(Math.max(progress, 0), 1);
+      var p = -rect.top / scrollDist;
+      return p;
     }
 
     function renderProgress(p) {
+      var clamped = Math.min(Math.max(p, 0), 1);
       var isMobile = window.innerWidth < 768;
-      
-      var baseW = isMobile ? 240 : 380;
-      var maxW = Math.min(window.innerWidth * (isMobile ? 0.94 : 0.92), 1160);
-      var targetW = baseW + (maxW - baseW) * p;
 
-      var baseH = isMobile ? 140 : 220;
-      var maxH = Math.min(window.innerHeight * (isMobile ? 0.42 : 0.55), isMobile ? 300 : 500);
-      var targetH = baseH + (maxH - baseH) * p;
+      // 1. Bulletproof Viewport Pinning (Works even inside overflow:hidden containers)
+      var rect = hero.getBoundingClientRect();
+      var scrollDist = hero.offsetHeight - window.innerHeight;
+
+      if (rect.top <= 0 && rect.top >= -scrollDist) {
+        stage.style.position = 'fixed';
+        stage.style.top = '0px';
+        stage.style.bottom = 'auto';
+        stage.style.left = '0px';
+        stage.style.width = '100%';
+        stage.style.zIndex = '10';
+      } else if (rect.top < -scrollDist) {
+        stage.style.position = 'absolute';
+        stage.style.top = 'auto';
+        stage.style.bottom = '0px';
+        stage.style.left = '0px';
+        stage.style.width = '100%';
+        stage.style.zIndex = '1';
+      } else {
+        stage.style.position = 'absolute';
+        stage.style.top = '0px';
+        stage.style.bottom = 'auto';
+        stage.style.left = '0px';
+        stage.style.width = '100%';
+        stage.style.zIndex = '10';
+      }
+      
+      // 2. Card Expansion Dimensions
+      var baseW = isMobile ? 260 : 380;
+      var maxW = Math.min(window.innerWidth * (isMobile ? 0.92 : 0.90), 1100);
+      var targetW = baseW + (maxW - baseW) * clamped;
+
+      var baseH = isMobile ? 140 : 210;
+      var maxH = Math.min(window.innerHeight * (isMobile ? 0.32 : 0.48), isMobile ? 220 : 440);
+      var targetH = baseH + (maxH - baseH) * clamped;
 
       card.style.width = targetW + 'px';
       card.style.height = targetH + 'px';
-      card.style.borderRadius = Math.max((isMobile ? 16 : 22) - p * 6, 12) + 'px';
+      card.style.borderRadius = Math.max((isMobile ? 16 : 22) - clamped * 6, 12) + 'px';
 
       if (expandImg) {
-        expandImg.style.transform = 'scale(' + (1 + p * 0.08) + ')';
+        expandImg.style.transform = 'scale(' + (1 + clamped * 0.08) + ')';
       }
 
       if (expandOverlay) {
-        expandOverlay.style.background = 'linear-gradient(180deg, rgba(4, 13, 26, ' + (0.1 + (1 - p) * 0.2) + ') 0%, rgba(4, 13, 26, ' + (0.85 - p * 0.3) + ') 100%)';
+        expandOverlay.style.background = 'linear-gradient(180deg, rgba(4, 13, 26, ' + (0.1 + (1 - clamped) * 0.2) + ') 0%, rgba(4, 13, 26, ' + (0.85 - clamped * 0.3) + ') 100%)';
       }
 
-      var splitDist = isMobile ? 70 : 55;
-      var textOpacity = Math.max(1 - p * 1.7, 0);
+      // 3. Headline Split & Fly-Out
+      var splitDist = isMobile ? 65 : 48;
+      var textOpacity = Math.max(1 - clamped * 1.6, 0);
 
       if (line1) {
-        line1.style.transform = 'translateX(-' + (p * splitDist) + 'vw)';
+        line1.style.transform = 'translateX(-' + (clamped * splitDist) + 'vw)';
         line1.style.opacity = textOpacity;
       }
       if (line2) {
-        line2.style.transform = 'translateX(' + (p * splitDist) + 'vw)';
+        line2.style.transform = 'translateX(' + (clamped * splitDist) + 'vw)';
         line2.style.opacity = textOpacity;
       }
 
-      var uiOpacity = Math.max(1 - p * 2.2, 0);
-      var uiY = -p * 25;
+      // 4. UI Header Controls Fade Out
+      var uiOpacity = Math.max(1 - clamped * 2.0, 0);
+      var uiY = -clamped * 25;
 
       if (badge) {
         badge.style.opacity = uiOpacity;
@@ -222,21 +254,22 @@ function initScrollExpansionHero() {
       }
 
       if (bgLayer) {
-        bgLayer.style.opacity = '' + (0.32 * (1 - p * 0.5));
+        bgLayer.style.opacity = '' + (0.32 * (1 - clamped * 0.5));
       }
 
+      // 5. Metrics Strip Fade In & Reveal
       if (metricsStrip) {
-        var mOpacity = p > 0.25 ? (p - 0.25) / 0.75 : 0;
+        var mOpacity = clamped > 0.3 ? (clamped - 0.3) / 0.7 : 0;
         metricsStrip.style.opacity = '' + mOpacity;
-        metricsStrip.style.transform = 'translateY(' + ((1 - p) * 20) + 'px)';
-        metricsStrip.style.pointerEvents = p > 0.5 ? 'auto' : 'none';
+        metricsStrip.style.transform = 'translateY(' + ((1 - clamped) * 20) + 'px)';
+        metricsStrip.style.pointerEvents = clamped > 0.5 ? 'auto' : 'none';
       }
     }
 
     function smoothUpdate() {
       var diff = targetProgress - currentProgress;
       if (Math.abs(diff) > 0.001) {
-        currentProgress += diff * 0.3;
+        currentProgress += diff * 0.35;
         renderProgress(currentProgress);
         animFrame = requestAnimationFrame(smoothUpdate);
       } else {
