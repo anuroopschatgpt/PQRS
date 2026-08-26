@@ -102,6 +102,139 @@
   <!-- ==========================================================================
        SECTION 1: HERO EXPERIENCE (2-Line Headline & 3-Item Metrics Strip)
        ========================================================================== -->
+  <script>
+  window.initScrollExpansionHero = function() {
+    try {
+      var hero = document.getElementById("hero");
+      var card = document.getElementById("scroll-expand-card");
+      var line1 = document.getElementById("hero-title-line-1");
+      var line2 = document.getElementById("hero-title-line-2");
+      var badge = document.getElementById("hero-badge");
+      var leadText = document.getElementById("hero-lead-text");
+      var ctaCluster = document.getElementById("hero-cta-cluster");
+      var expandImg = document.getElementById("hero-expand-img");
+      var expandOverlay = document.getElementById("hero-expand-overlay");
+      var metricsStrip = document.getElementById("hero-metrics-strip");
+      var bgLayer = document.getElementById("hero-bg-layer");
+
+      if (!hero || !card) return;
+
+      var animFrame = null;
+      var currentProgress = 0;
+      var targetProgress = 0;
+
+      function calculateProgress() {
+        var rect = hero.getBoundingClientRect();
+        var scrollDist = hero.offsetHeight - window.innerHeight;
+        if (scrollDist <= 0) return 0;
+        var progress = -rect.top / scrollDist;
+        return Math.min(Math.max(progress, 0), 1);
+      }
+
+      function renderProgress(p) {
+        var isMobile = window.innerWidth < 768;
+        
+        var baseW = isMobile ? 240 : 380;
+        var maxW = Math.min(window.innerWidth * (isMobile ? 0.94 : 0.92), 1160);
+        var targetW = baseW + (maxW - baseW) * p;
+
+        var baseH = isMobile ? 140 : 220;
+        var maxH = Math.min(window.innerHeight * (isMobile ? 0.42 : 0.55), isMobile ? 300 : 500);
+        var targetH = baseH + (maxH - baseH) * p;
+
+        card.style.width = targetW + "px";
+        card.style.height = targetH + "px";
+        card.style.borderRadius = Math.max((isMobile ? 16 : 22) - p * 6, 12) + "px";
+
+        if (expandImg) {
+          expandImg.style.transform = "scale(" + (1 + p * 0.08) + ")";
+        }
+
+        if (expandOverlay) {
+          expandOverlay.style.background = "linear-gradient(180deg, rgba(4, 13, 26, " + (0.1 + (1 - p) * 0.2) + ") 0%, rgba(4, 13, 26, " + (0.85 - p * 0.3) + ") 100%)";
+        }
+
+        var splitDist = isMobile ? 70 : 55;
+        var textOpacity = Math.max(1 - p * 1.7, 0);
+
+        if (line1) {
+          line1.style.transform = "translateX(-" + (p * splitDist) + "vw)";
+          line1.style.opacity = textOpacity;
+        }
+        if (line2) {
+          line2.style.transform = "translateX(" + (p * splitDist) + "vw)";
+          line2.style.opacity = textOpacity;
+        }
+
+        var uiOpacity = Math.max(1 - p * 2.2, 0);
+        var uiY = -p * 25;
+
+        if (badge) {
+          badge.style.opacity = uiOpacity;
+          badge.style.transform = "translateY(" + uiY + "px)";
+        }
+        if (leadText) {
+          leadText.style.opacity = uiOpacity;
+          leadText.style.transform = "translateY(" + uiY + "px)";
+        }
+        if (ctaCluster) {
+          ctaCluster.style.opacity = uiOpacity;
+          ctaCluster.style.transform = "translateY(" + uiY + "px)";
+        }
+
+        if (bgLayer) {
+          bgLayer.style.opacity = "" + (0.32 * (1 - p * 0.5));
+        }
+
+        if (metricsStrip) {
+          var mOpacity = p > 0.25 ? (p - 0.25) / 0.75 : 0;
+          metricsStrip.style.opacity = "" + mOpacity;
+          metricsStrip.style.transform = "translateY(" + ((1 - p) * 20) + "px)";
+          metricsStrip.style.pointerEvents = p > 0.5 ? "auto" : "none";
+        }
+      }
+
+      function smoothUpdate() {
+        var diff = targetProgress - currentProgress;
+        if (Math.abs(diff) > 0.001) {
+          currentProgress += diff * 0.3;
+          renderProgress(currentProgress);
+          animFrame = requestAnimationFrame(smoothUpdate);
+        } else {
+          currentProgress = targetProgress;
+          renderProgress(currentProgress);
+          animFrame = null;
+        }
+      }
+
+      function onScrollUpdate() {
+        targetProgress = calculateProgress();
+        if (!animFrame) {
+          animFrame = requestAnimationFrame(smoothUpdate);
+        }
+      }
+
+      window.addEventListener("scroll", onScrollUpdate, { passive: true });
+      document.addEventListener("scroll", onScrollUpdate, { passive: true });
+      window.addEventListener("resize", onScrollUpdate, { passive: true });
+      window.addEventListener("touchmove", onScrollUpdate, { passive: true });
+      window.addEventListener("wheel", onScrollUpdate, { passive: true });
+
+      targetProgress = calculateProgress();
+      currentProgress = targetProgress;
+      renderProgress(currentProgress);
+    } catch (err) {
+      console.warn("Scroll expansion init:", err);
+    }
+  };
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", window.initScrollExpansionHero);
+  } else {
+    window.initScrollExpansionHero();
+  }
+  window.addEventListener("load", window.initScrollExpansionHero);
+  </script>
+
   <section class="scroll-hero-container" id="hero">
     <!-- Atmospheric Ambient Background Layer -->
     <img src="assets/scroll_bg.jpg" alt="University Research Library Background" class="hero-bg-layer" id="hero-bg-layer">
