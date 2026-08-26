@@ -260,10 +260,6 @@
               </div>
             </div>
           </div>
-
-          <div style="margin-top: 32px;">
-            <a href="#services" class="btn btn-gold">Explore All 12 Services →</a>
-          </div>
         </div>
 
         <div>
@@ -301,6 +297,222 @@
           Select specific modules or get end-to-end guidance from first draft to final degree.
         </p>
       </div>
+
+      <script>
+      window.PQRS_PHONE = "917799956799";
+      window.MODULE_DATA = {
+        1: {
+          num: "01",
+          title: "Topic Selection & Research Gap",
+          desc: "We help you discover a clear, original, and approved research topic that fits your university guidelines and timeline.",
+          deliverables: [
+            "Comparative Research Gap Matrix",
+            "Topic Novelty & Feasibility Assessment",
+            "Draft Problem Statement for Committee Review",
+            "Initial 10–15 landmark foundational citations"
+          ]
+        },
+        2: {
+          num: "02",
+          title: "Literature Review",
+          desc: "A comprehensive and organized review of all relevant academic papers to establish a rock-solid foundation for your research.",
+          deliverables: [
+            "Organized Literature Synthesis Table",
+            "Critical review of 50–100+ peer-reviewed papers",
+            "Clear summary of theoretical voids in current literature",
+            "Complete bibliography formatted in Mendeley or Zotero"
+          ]
+        },
+        3: {
+          num: "03",
+          title: "Research Proposal",
+          desc: "A well-structured research proposal with clear objectives, testable hypotheses, and an actionable methodology.",
+          deliverables: [
+            "Clear Problem Statement & Research Objectives",
+            "Hypotheses Framework & Conceptual Model",
+            "Step-by-step Methodology Blueprint",
+            "Chapter Work Plan & Timeline"
+          ]
+        },
+        4: {
+          num: "04",
+          title: "Synopsis Writing",
+          desc: "A concise, university-compliant synopsis summarizing your entire study for quick institutional approval.",
+          deliverables: [
+            "Synopsis formatted to your university's exact layout",
+            "Executive summary of research design and data methods",
+            "Summary of expected contributions and outcomes",
+            "Pre-defense slide deck preparation support"
+          ]
+        },
+        5: {
+          num: "05",
+          title: "Research Methodology",
+          desc: "Practical study design covering quantitative, qualitative, or mixed methods with accurate sample size planning.",
+          deliverables: [
+            "Clear research paradigm & epistemological framework",
+            "Sample size calculation and statistical power justification",
+            "Reliability & validity measurement protocol",
+            "Ethical clearance and compliance guidance"
+          ]
+        },
+        6: {
+          num: "06",
+          title: "Data Collection Support",
+          desc: "Assistance with survey questionnaire design, Likert scale formulation, and primary/secondary data gathering.",
+          deliverables: [
+            "Custom questionnaire and survey scale design",
+            "Pilot study guidance & Cronbach's Alpha check",
+            "Secondary data curation guidelines",
+            "Data cleaning, coding, and preparation manual"
+          ]
+        },
+        7: {
+          num: "07",
+          title: "Data & Statistical Analysis",
+          desc: "Accurate statistical computations in SPSS, AMOS, Excel, R, or Python explained in simple, easy-to-defend terms.",
+          deliverables: [
+            "Descriptive, correlation, and regression analysis",
+            "Structural Equation Modeling (SEM) & Factor Analysis",
+            "High-resolution formatted statistical charts and tables",
+            "Plain-language explanation of all statistical findings"
+          ]
+        },
+        8: {
+          num: "08",
+          title: "Results & Discussion",
+          desc: "Clear interpretation connecting your statistical numbers back to your research questions and literature.",
+          deliverables: [
+            "Hypothesis acceptance/rejection summary table",
+            "Triangulation of findings with existing research",
+            "Theoretical and practical implications write-up",
+            "Study limitations and recommendations for future research"
+          ]
+        },
+        9: {
+          num: "09",
+          title: "Thesis Writing",
+          desc: "Complete chapter-by-chapter drafting with logical flow, clear academic voice, and smooth transitions.",
+          deliverables: [
+            "Complete 5 or 6 chapter thesis drafts",
+            "Clear, professional academic writing with zero jargon clutter",
+            "Integration of tables, figures, and accurate citations",
+            "Revisions based on your supervisor's review feedback"
+          ]
+        },
+        10: {
+          num: "10",
+          title: "Referencing & Formatting",
+          desc: "Flawless formatting in APA, Harvard, Chicago, or your university's margin handbook with zero layout errors.",
+          deliverables: [
+            "100% In-text citation to bibliography cross-matching",
+            "Pagination, font hierarchy, and margin alignment",
+            "Automated Table of Contents, Figures, and Tables",
+            "EndNote / Mendeley library export"
+          ]
+        },
+        11: {
+          num: "11",
+          title: "Plagiarism Check",
+          desc: "Official Turnitin similarity verification ensuring 100% original, verified academic writing.",
+          deliverables: [
+            "Official Turnitin Similarity Index report",
+            "Sentence-by-sentence originality check",
+            "Contextual paraphrasing to reduce accidental matches",
+            "Final verified originality report"
+          ]
+        },
+        12: {
+          num: "12",
+          title: "Publication Support",
+          desc: "Complete guidance to publish your research papers in recognized peer-reviewed journals.",
+          deliverables: [
+            "Journal shortlist matched to your study's scope",
+            "Manuscript conversion to target journal author guidelines",
+            "Cover letter and submission support",
+            "Rebuttal letter formulation for reviewer comments"
+          ]
+        }
+      };
+
+      window.openModuleModal = function(id, e) {
+        if (e && typeof e.preventDefault === 'function') e.preventDefault();
+        var data = (window.MODULE_DATA && window.MODULE_DATA[id]) ? window.MODULE_DATA[id] : null;
+        if (!data) return;
+        var numEl = document.getElementById("modal-num");
+        var titleEl = document.getElementById("modal-title");
+        var descEl = document.getElementById("modal-desc");
+        var deliverablesList = document.getElementById("modal-deliverables");
+        var waLink = document.getElementById("modal-whatsapp-link");
+        var backdrop = document.getElementById("module-modal-backdrop");
+
+        if (numEl) numEl.textContent = data.num;
+        if (titleEl) titleEl.textContent = data.title;
+        if (descEl) descEl.textContent = data.desc;
+
+        if (deliverablesList) {
+          deliverablesList.innerHTML = "";
+          for (var i = 0; i < data.deliverables.length; i++) {
+            var li = document.createElement("li");
+            li.textContent = data.deliverables[i];
+            deliverablesList.appendChild(li);
+          }
+        }
+
+        if (waLink) {
+          var msg = "Hello PQRS, I would like to inquire about: " + data.title + ".";
+          waLink.href = "https://wa.me/" + (window.PQRS_PHONE || "917799956799") + "?text=" + encodeURIComponent(msg);
+        }
+
+        if (backdrop) {
+          backdrop.classList.add("active");
+          backdrop.style.display = "flex";
+          backdrop.style.visibility = "visible";
+          backdrop.style.opacity = "1";
+        }
+        document.body.style.overflow = "hidden";
+      };
+
+      window.closeModuleModal = function(e) {
+        if (e && typeof e.preventDefault === 'function') e.preventDefault();
+        var backdrop = document.getElementById("module-modal-backdrop");
+        if (backdrop) {
+          backdrop.classList.remove("active");
+          backdrop.style.display = "none";
+          backdrop.style.visibility = "hidden";
+        }
+        document.body.style.overflow = "auto";
+      };
+
+      window.closeModalOnBackdrop = function(e) {
+        if (e && e.target && e.target.id === "module-modal-backdrop") {
+          window.closeModuleModal(e);
+        }
+      };
+
+      window.filterModules = function(category, e) {
+        if (e && typeof e.preventDefault === 'function') e.preventDefault();
+        var cards = document.querySelectorAll(".module-card");
+        var buttons = document.querySelectorAll(".filter-btn");
+
+        for (var i = 0; i < buttons.length; i++) {
+          var btn = buttons[i];
+          var btnCat = btn.getAttribute("data-filter") || "";
+          var isMatch = (category === "all" && btnCat === "all") || (btnCat === category);
+          btn.classList.toggle("active", isMatch);
+        }
+
+        for (var j = 0; j < cards.length; j++) {
+          var card = cards[j];
+          var cardCat = card.getAttribute("data-category");
+          if (category === "all" || cardCat === category) {
+            card.style.display = "flex";
+          } else {
+            card.style.display = "none";
+          }
+        }
+      };
+      </script>
 
       <!-- Filter Buttons -->
       <div class="catalog-filter-bar">
@@ -608,19 +820,41 @@
 
       </div>
 
-      <!-- Celebration Milestone Card -->
-      <div style="margin-top: 50px; border-radius: 20px; overflow: hidden; border: 1px solid var(--navy-border); display: grid; grid-template-columns: 1.1fr 0.9fr; background: var(--navy-card); align-items: center;">
-        <div style="padding: 40px;">
-          <span class="tag-badge tag-dark">Milestone Achievement</span>
-          <h3 style="font-size: 1.8rem; color: #ffffff; margin-bottom: 12px;">Submit Your Thesis with Confidence</h3>
-          <p style="color: var(--text-light-secondary); margin-bottom: 20px; font-size: 0.92rem; line-height: 1.55;">
-            "PQRS guided me through my data analysis and thesis formatting step by step. Everything was clear, well-structured, and ready for my viva defense."
+      <!-- Defense Readiness Assurance Showcase Card (Non-Testimonial Structural Format) -->
+      <div class="defense-assurance-card">
+        <div class="defense-assurance-content">
+          <span class="tag-badge tag-dark">🎓 Viva & Defense Readiness</span>
+          <h3 class="defense-assurance-title">Submit Your Thesis with Complete Confidence</h3>
+          <p class="defense-assurance-desc">
+            We ensure every chapter, statistical table, and reference citation is structured for seamless committee review and defense success.
           </p>
-          <div style="font-weight: 700; color: #ffffff;">Doctoral Scholar Milestone</div>
-          <div style="font-size: 0.82rem; color: var(--gold-light);">Faculty of Management & Humanities</div>
+
+          <div class="defense-pillars-list">
+            <div class="defense-pillar-item">
+              <div class="defense-pillar-icon">✓</div>
+              <div>
+                <strong>100% Supervisor Feedback Alignment</strong>
+                <span>Continuous chapter revisions aligned with supervisor and committee commentary.</span>
+              </div>
+            </div>
+            <div class="defense-pillar-item">
+              <div class="defense-pillar-icon">✓</div>
+              <div>
+                <strong>Turnitin-Verified Originality & Integrity</strong>
+                <span>Certified originality reports ensuring zero accidental matches or citation errors.</span>
+              </div>
+            </div>
+            <div class="defense-pillar-item">
+              <div class="defense-pillar-icon">✓</div>
+              <div>
+                <strong>Pre-Defense Slide Deck & Mock Viva Guidance</strong>
+                <span>Clear presentation slides and plain-language methodology defense coaching.</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div style="height: 100%; min-height: 280px;">
-          <img src="assets/scholar_celebration.jpg" alt="PhD Convocation Milestone" style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="defense-assurance-media">
+          <img src="assets/scholar_celebration.jpg" alt="PhD Convocation Milestone Achievement" class="defense-assurance-img">
         </div>
       </div>
 
