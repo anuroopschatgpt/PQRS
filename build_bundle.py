@@ -21,6 +21,10 @@ script_injection = f"""
 <!-- ==========================================================================
      PQRS BULLETPROOF AUTO-EXECUTION ENGINE (Immune to innerHTML blocking)
      ========================================================================== -->
+<script id="pqrs-bundle-core-script" type="text/javascript">
+{js_content}
+</script>
+
 <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="display:none!important;position:absolute;width:0;height:0;opacity:0;pointer-events:none;" onerror="
 (function(){{
   if (window.__PQRS_BOOTSTRAP_LOADED__) return;
@@ -56,24 +60,6 @@ script_injection = f"""
   }}
 }})();
 ">
-
-<script id="pqrs-bundle-core-script" type="text/javascript">
-{js_content}
-</script>
-
-<script type="text/javascript">
-(function(){{
-  try {{
-    if (!window.__PQRS_BOOTSTRAP_LOADED__) {{
-      window.__PQRS_BOOTSTRAP_LOADED__ = true;
-      var codeEl = document.getElementById('pqrs-bundle-core-script');
-      if (codeEl) {{
-        (new Function(codeEl.textContent || codeEl.innerText))();
-      }}
-    }}
-  }} catch(e) {{}}
-}})();
-</script>
 """
 
 # Replace <link rel="stylesheet" href="style.css"> with <style>...</style>
