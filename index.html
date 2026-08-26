@@ -100,185 +100,19 @@
   </header>
 
   <!-- ==========================================================================
-       SECTION 1: HERO EXPERIENCE (2-Line Headline & 3-Item Metrics Strip)
+       SECTION 1: HERO EXPERIENCE (Standard High-Converting Hero Layout)
        ========================================================================== -->
-  <script>
-  window.initScrollExpansionHero = function() {
-    try {
-      var hero = document.getElementById("hero");
-      var stage = document.getElementById("hero-interactive-stage");
-      var card = document.getElementById("scroll-expand-card");
-      var line1 = document.getElementById("hero-title-line-1");
-      var line2 = document.getElementById("hero-title-line-2");
-      var badge = document.getElementById("hero-badge");
-      var leadText = document.getElementById("hero-lead-text");
-      var ctaCluster = document.getElementById("hero-cta-cluster");
-      var expandImg = document.getElementById("hero-expand-img");
-      var expandOverlay = document.getElementById("hero-expand-overlay");
-      var metricsStrip = document.getElementById("hero-metrics-strip");
-      var bgLayer = document.getElementById("hero-bg-layer");
-
-      if (!hero || !card || !stage) return;
-
-      var animFrame = null;
-      var currentProgress = 0;
-      var targetProgress = 0;
-
-      function calculateProgress() {
-        var rect = hero.getBoundingClientRect();
-        var scrollDist = hero.offsetHeight - window.innerHeight;
-        if (scrollDist <= 0) return 0;
-        var p = -rect.top / scrollDist;
-        return p;
-      }
-
-      function renderProgress(p) {
-        var clamped = Math.min(Math.max(p, 0), 1);
-        var isMobile = window.innerWidth < 768;
-
-        // 1. Bulletproof Viewport Pinning
-        var rect = hero.getBoundingClientRect();
-        var scrollDist = hero.offsetHeight - window.innerHeight;
-
-        if (rect.top <= 0 && rect.top >= -scrollDist) {
-          stage.style.position = 'fixed';
-          stage.style.top = '0px';
-          stage.style.bottom = 'auto';
-          stage.style.left = '0px';
-          stage.style.width = '100%';
-          stage.style.zIndex = '10';
-        } else if (rect.top < -scrollDist) {
-          stage.style.position = 'absolute';
-          stage.style.top = 'auto';
-          stage.style.bottom = '0px';
-          stage.style.left = '0px';
-          stage.style.width = '100%';
-          stage.style.zIndex = '1';
-        } else {
-          stage.style.position = 'absolute';
-          stage.style.top = '0px';
-          stage.style.bottom = 'auto';
-          stage.style.left = '0px';
-          stage.style.width = '100%';
-          stage.style.zIndex = '10';
-        }
-        
-        // 2. Card Expansion Dimensions
-        var baseW = isMobile ? 260 : 380;
-        var maxW = Math.min(window.innerWidth * (isMobile ? 0.92 : 0.90), 1100);
-        var targetW = baseW + (maxW - baseW) * clamped;
-
-        var baseH = isMobile ? 140 : 210;
-        var maxH = Math.min(window.innerHeight * (isMobile ? 0.32 : 0.48), isMobile ? 220 : 440);
-        var targetH = baseH + (maxH - baseH) * clamped;
-
-        card.style.width = targetW + 'px';
-        card.style.height = targetH + 'px';
-        card.style.borderRadius = Math.max((isMobile ? 16 : 22) - clamped * 6, 12) + 'px';
-
-        if (expandImg) {
-          expandImg.style.transform = 'scale(' + (1 + clamped * 0.08) + ')';
-        }
-
-        if (expandOverlay) {
-          expandOverlay.style.background = 'linear-gradient(180deg, rgba(4, 13, 26, ' + (0.1 + (1 - clamped) * 0.2) + ') 0%, rgba(4, 13, 26, ' + (0.85 - clamped * 0.3) + ') 100%)';
-        }
-
-        // 3. Headline Split & Fly-Out
-        var splitDist = isMobile ? 65 : 48;
-        var textOpacity = Math.max(1 - clamped * 1.6, 0);
-
-        if (line1) {
-          line1.style.transform = 'translateX(-' + (clamped * splitDist) + 'vw)';
-          line1.style.opacity = textOpacity;
-        }
-        if (line2) {
-          line2.style.transform = 'translateX(' + (clamped * splitDist) + 'vw)';
-          line2.style.opacity = textOpacity;
-        }
-
-        // 4. UI Header Controls Fade Out
-        var uiOpacity = Math.max(1 - clamped * 2.0, 0);
-        var uiY = -clamped * 25;
-
-        if (badge) {
-          badge.style.opacity = uiOpacity;
-          badge.style.transform = 'translateY(' + uiY + 'px)';
-        }
-        if (leadText) {
-          leadText.style.opacity = uiOpacity;
-          leadText.style.transform = 'translateY(' + uiY + 'px)';
-        }
-        if (ctaCluster) {
-          ctaCluster.style.opacity = uiOpacity;
-          ctaCluster.style.transform = 'translateY(' + uiY + 'px)';
-        }
-
-        if (bgLayer) {
-          bgLayer.style.opacity = '' + (0.32 * (1 - clamped * 0.5));
-        }
-
-        // 5. Metrics Strip Fade In & Reveal
-        if (metricsStrip) {
-          var mOpacity = clamped > 0.3 ? (clamped - 0.3) / 0.7 : 0;
-          metricsStrip.style.opacity = '' + mOpacity;
-          metricsStrip.style.transform = 'translateY(' + ((1 - clamped) * 20) + 'px)';
-          metricsStrip.style.pointerEvents = clamped > 0.5 ? 'auto' : 'none';
-        }
-      }
-
-      function smoothUpdate() {
-        var diff = targetProgress - currentProgress;
-        if (Math.abs(diff) > 0.001) {
-          currentProgress += diff * 0.35;
-          renderProgress(currentProgress);
-          animFrame = requestAnimationFrame(smoothUpdate);
-        } else {
-          currentProgress = targetProgress;
-          renderProgress(currentProgress);
-          animFrame = null;
-        }
-      }
-
-      function onScrollUpdate() {
-        targetProgress = calculateProgress();
-        if (!animFrame) {
-          animFrame = requestAnimationFrame(smoothUpdate);
-        }
-      }
-
-      window.addEventListener('scroll', onScrollUpdate, { passive: true });
-      document.addEventListener('scroll', onScrollUpdate, { passive: true });
-      window.addEventListener('resize', onScrollUpdate, { passive: true });
-      window.addEventListener('touchmove', onScrollUpdate, { passive: true });
-      window.addEventListener('wheel', onScrollUpdate, { passive: true });
-
-      targetProgress = calculateProgress();
-      currentProgress = targetProgress;
-      renderProgress(currentProgress);
-    } catch (err) {
-      console.warn('Scroll expansion init:', err);
-    }
-  };
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', window.initScrollExpansionHero);
-  } else {
-    window.initScrollExpansionHero();
-  }
-  window.addEventListener('load', window.initScrollExpansionHero);
-  </script>
-
-  <section class="scroll-hero-container" id="hero">
+  <section class="hero-standard-section" id="hero">
     <!-- Atmospheric Ambient Background Layer -->
     <img src="assets/scroll_bg.jpg" alt="University Research Library Background" class="hero-bg-layer" id="hero-bg-layer">
     <div class="hero-bg-overlay" id="hero-bg-overlay"></div>
 
-    <div class="hero-interactive-stage" id="hero-interactive-stage">
+    <div class="container hero-standard-container">
       
-      <div class="hero-content-layer" id="hero-content-layer">
+      <div class="hero-standard-content">
         <span class="tag-badge tag-dark" id="hero-badge">✨ Expert PhD & Research Consulting</span>
         
-        <!-- 2-Line Headline (Splits Horizontally on Scroll) -->
+        <!-- 2-Line Headline (High Contrast White with Luxury Accents) -->
         <h1 class="text-editorial-hero" id="hero-headline">
           <span class="hero-title-line-1" id="hero-title-line-1">Struggling with your <span class="hero-headline-accent">PhD Thesis?</span></span><br>
           <span class="hero-title-line-2" id="hero-title-line-2">We'll help you finish it <span class="hero-headline-accent-gold">with confidence.</span></span>
@@ -297,16 +131,16 @@
         </div>
       </div>
 
-      <!-- Main Expanding Media Card -->
-      <div class="scroll-expand-card" id="scroll-expand-card">
-        <img src="assets/hero_scholar.jpg" alt="Doctoral Scholar at University Research Desk" id="hero-expand-img">
+      <!-- Standard Showcase Media Card -->
+      <div class="hero-standard-card" id="hero-standard-card">
+        <img src="assets/hero_scholar.jpg" alt="Doctoral Scholar at University Research Desk" class="hero-standard-img" id="hero-expand-img">
         <div class="expand-card-overlay" id="hero-expand-overlay">
           <span class="expand-tag" id="hero-expand-tag">100% Originality & Verified Quality</span>
           <h3 class="expand-title" id="hero-expand-title">Personalized 1-on-1 Guidance for Every Milestone</h3>
         </div>
       </div>
 
-      <!-- Metric Strip (3 Clean Blocks, Removed 1-on-1 Mentors Block) -->
+      <!-- Metric Strip (3 Clean Blocks, Always Visible) -->
       <div class="metrics-strip" id="hero-metrics-strip">
         <div class="metric-card">
           <div class="metric-number">100<span>%</span></div>
@@ -731,7 +565,7 @@
         </div>
 
         <!-- 03: Royal Purple Tint -->
-        <div class="module-card module-card-purple" data-category="topic" data-module-id="3" data-action="open-module" onclick="openModuleModal(2, event)">
+        <div class="module-card module-card-purple" data-category="topic" data-module-id="3" data-action="open-module" onclick="openModuleModal(3, event)">
           <div>
             <div class="module-header-row">
               <span class="module-category-pill">Topic & Proposal</span>
