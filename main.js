@@ -450,21 +450,22 @@ function closeModalOnBackdrop(e) {
 // 5. ROADMAP BUILDER (Wizard)
 // ==========================================================================
 window.pqrsWizardState = window.pqrsWizardState || {
-  discipline: "Management & Commerce",
-  bottleneck: "Full Thesis Writing",
-  timeline: "Standard: 3-4 Months"
+  discipline: "",
+  bottleneck: "",
+  timeline: ""
 };
 
 function selectWizardOption(step, value, btnEl, e) {
   if (e) {
     if (e.__wizardOptHandled) return;
     e.__wizardOptHandled = true;
+    if (typeof e.preventDefault === "function") e.preventDefault();
   }
 
   const state = window.pqrsWizardState || {
-    discipline: "Management & Commerce",
-    bottleneck: "Full Thesis Writing",
-    timeline: "Standard: 3-4 Months"
+    discipline: "",
+    bottleneck: "",
+    timeline: ""
   };
   window.pqrsWizardState = state;
 
@@ -655,23 +656,18 @@ function resetWizard(e) {
   if (e) {
     if (e.__resetHandled) return;
     e.__resetHandled = true;
+    if (typeof e.preventDefault === "function") e.preventDefault();
   }
 
   window.pqrsWizardState = {
-    discipline: "Management & Commerce",
-    bottleneck: "Full Thesis Writing",
-    timeline: "Standard: 3-4 Months"
+    discipline: "",
+    bottleneck: "",
+    timeline: ""
   };
 
-  // Re-select defaults
-  const step1Btns = document.querySelectorAll("#step-1 .wizard-opt-btn");
-  step1Btns.forEach((btn, idx) => btn.classList.toggle("selected", idx === 0));
-
-  const step2Btns = document.querySelectorAll("#step-2 .wizard-opt-btn");
-  step2Btns.forEach((btn, idx) => btn.classList.toggle("selected", idx === 3));
-
-  const step3Btns = document.querySelectorAll("#step-3 .wizard-opt-btn");
-  step3Btns.forEach((btn, idx) => btn.classList.toggle("selected", idx === 1));
+  // Re-select defaults: all unselected
+  const allBtns = document.querySelectorAll(".wizard-opt-btn");
+  allBtns.forEach(btn => btn.classList.remove("selected"));
 
   goToWizardStep(1);
 }
