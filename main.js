@@ -165,40 +165,44 @@ function initScrollExpansionHero() {
     let targetProgress = 0;
     let animationFrameId = null;
 
+    function getScrollPosition() {
+      return window.scrollY || window.pageYOffset || (document.documentElement ? document.documentElement.scrollTop : 0) || (document.body ? document.body.scrollTop : 0) || 0;
+    }
+
     function renderProgress(progress) {
       const isMobile = window.innerWidth < 768;
       
       const baseWidth = isMobile ? 280 : 340;
-      const targetMaxWidth = Math.min(window.innerWidth * 0.92, 1150);
+      const targetMaxWidth = Math.min(window.innerWidth * 0.94, 1180);
       const expandWidth = Math.max(targetMaxWidth - baseWidth, 100);
-      const baseHeight = isMobile ? 320 : 380;
-      const expandHeight = isMobile ? 180 : 240;
+      const baseHeight = isMobile ? 300 : 360;
+      const expandHeight = isMobile ? 180 : 220;
 
-      const currentWidth = Math.min(baseWidth + progress * expandWidth, window.innerWidth * 0.95);
+      const currentWidth = Math.min(baseWidth + progress * expandWidth, window.innerWidth * 0.96);
       const currentHeight = Math.min(baseHeight + progress * expandHeight, window.innerHeight * 0.85);
 
-      card.style.width = `${currentWidth}px`;
-      card.style.height = `${currentHeight}px`;
-      card.style.transform = `scale(${1 + progress * 0.03})`;
+      card.style.width = currentWidth + "px";
+      card.style.height = currentHeight + "px";
+      card.style.transform = "scale(" + (1 + progress * 0.02) + ")";
 
       if (expandImg) {
-        expandImg.style.transform = `scale(${1 + progress * 0.08})`;
+        expandImg.style.transform = "scale(" + (1 + progress * 0.08) + ")";
       }
 
       if (expandOverlay) {
-        expandOverlay.style.background = `linear-gradient(180deg, rgba(4, 13, 26, ${0.1 + (1 - progress) * 0.2}) 0%, rgba(4, 13, 26, ${0.85 - progress * 0.35}) 100%)`;
+        expandOverlay.style.background = "linear-gradient(180deg, rgba(4, 13, 26, " + (0.1 + (1 - progress) * 0.2) + ") 0%, rgba(4, 13, 26, " + (0.85 - progress * 0.35) + ") 100%)";
       }
 
-      const textTranslateX = progress * (isMobile ? 120 : 85);
-      const textOpacity = Math.max(1 - progress * 1.5, 0);
+      const textTranslateX = progress * (isMobile ? 80 : 60);
+      const textOpacity = Math.max(1 - progress * 1.6, 0);
 
       if (line1) {
-        line1.style.transform = `translateX(-${textTranslateX}vw)`;
+        line1.style.transform = "translateX(-" + textTranslateX + "vw)";
         line1.style.opacity = textOpacity;
       }
 
       if (line2) {
-        line2.style.transform = `translateX(${textTranslateX}vw)`;
+        line2.style.transform = "translateX(" + textTranslateX + "vw)";
         line2.style.opacity = textOpacity;
       }
 
@@ -207,31 +211,31 @@ function initScrollExpansionHero() {
 
       if (badge) {
         badge.style.opacity = uiOpacity;
-        badge.style.transform = `translateY(${uiTranslateY}px)`;
+        badge.style.transform = "translateY(" + uiTranslateY + "px)";
       }
       if (leadText) {
         leadText.style.opacity = uiOpacity;
-        leadText.style.transform = `translateY(${uiTranslateY}px)`;
+        leadText.style.transform = "translateY(" + uiTranslateY + "px)";
       }
       if (ctaCluster) {
         ctaCluster.style.opacity = uiOpacity;
-        ctaCluster.style.transform = `translateY(${uiTranslateY}px)`;
+        ctaCluster.style.transform = "translateY(" + uiTranslateY + "px)";
       }
 
       if (bgLayer) {
-        bgLayer.style.opacity = `${0.36 * (1 - progress * 0.65)}`;
+        bgLayer.style.opacity = "" + (0.36 * (1 - progress * 0.65));
       }
 
       if (metricsStrip) {
-        metricsStrip.style.opacity = progress > 0.3 ? `${(progress - 0.3) / 0.7}` : "0.1";
-        metricsStrip.style.transform = `translateY(${(1 - progress) * 16}px)`;
+        metricsStrip.style.opacity = progress > 0.2 ? "" + ((progress - 0.2) / 0.8) : "0.05";
+        metricsStrip.style.transform = "translateY(" + ((1 - progress) * 18) + "px)";
       }
     }
 
     function updateProgressSmoothly() {
       const diff = targetProgress - scrollProgress;
       if (Math.abs(diff) > 0.001) {
-        scrollProgress += diff * 0.2;
+        scrollProgress += diff * 0.25;
         renderProgress(scrollProgress);
         animationFrameId = requestAnimationFrame(updateProgressSmoothly);
       } else {
@@ -241,21 +245,24 @@ function initScrollExpansionHero() {
       }
     }
 
-    function setTarget(val) {
-      targetProgress = Math.min(Math.max(val, 0), 1);
+    function onScrollUpdate() {
+      const scrollY = getScrollPosition();
+      const maxScroll = Math.max(window.innerHeight * 0.55, 380);
+      const progress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
+      targetProgress = progress;
       if (!animationFrameId) {
         animationFrameId = requestAnimationFrame(updateProgressSmoothly);
       }
     }
 
-    window.addEventListener("scroll", () => {
-      const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
-      const maxScroll = Math.max(window.innerHeight * 0.6, 420);
-      const progress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
-      setTarget(progress);
-    }, { passive: true });
+    window.addEventListener("scroll", onScrollUpdate, { passive: true });
+    document.addEventListener("scroll", onScrollUpdate, { passive: true });
+    window.addEventListener("resize", onScrollUpdate, { passive: true });
+    window.addEventListener("touchmove", onScrollUpdate, { passive: true });
+    window.addEventListener("wheel", onScrollUpdate, { passive: true });
 
-    renderProgress(0);
+    // Initial render
+    onScrollUpdate();
   } catch (err) {
     console.warn("Scroll animation init fallback:", err);
   }
