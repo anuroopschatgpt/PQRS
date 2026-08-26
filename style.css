@@ -598,31 +598,23 @@ p.lead-text {
 }
 
 /* ==========================================================================
-   SCROLL-EXPANSION HERO SECTION (Pinned Stage Runway)
+   STANDARD HERO SECTION (Clean Static Hero Image & Metrics)
    ========================================================================== */
-.scroll-hero-container {
+.hero-standard-section {
   position: relative;
-  height: 175vh;
-  background: var(--navy-deep);
-  overflow: visible;
+  background-color: var(--navy-deep);
+  color: #ffffff;
+  padding: 130px 0 70px 0;
+  overflow: hidden;
+  text-align: center;
 }
 
-.hero-interactive-stage {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  height: 100dvh;
+.hero-standard-container {
+  position: relative;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 76px 20px 20px 20px;
-  overflow: hidden;
-  z-index: 10;
-  box-sizing: border-box;
 }
 
 .hero-bg-layer {
@@ -634,7 +626,6 @@ p.lead-text {
   opacity: 0.32;
   pointer-events: none;
   z-index: 1;
-  transition: opacity 0.2s ease;
 }
 
 .hero-bg-overlay {
@@ -645,7 +636,7 @@ p.lead-text {
   z-index: 2;
 }
 
-.hero-content-layer {
+.hero-standard-content {
   max-width: 900px;
   margin: 0 auto;
   color: #ffffff;
@@ -655,47 +646,43 @@ p.lead-text {
   width: 100%;
 }
 
-.hero-title-line-1,
-.hero-title-line-2 {
-  display: inline-block;
-  will-change: transform, opacity;
-}
-
-#hero-badge,
-#hero-lead-text,
-#hero-cta-cluster {
-  will-change: transform, opacity;
+.hero-standard-section h1,
+.hero-standard-section .text-editorial-hero,
+#hero-headline {
+  color: #ffffff !important;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
 }
 
 .hero-cta-cluster {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 14px;
   flex-wrap: wrap;
+  margin-top: 10px;
 }
 
-/* Expanding Media Card */
-.scroll-expand-card {
+/* Standard Hero Showcase Media Card */
+.hero-standard-card {
   position: relative;
-  width: clamp(280px, 44vw, 540px);
-  height: clamp(170px, 26vh, 280px);
-  border-radius: 20px;
+  max-width: 980px;
+  width: 100%;
+  aspect-ratio: 16 / 8.8;
+  border-radius: 22px;
   overflow: hidden;
-  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(197, 160, 89, 0.35);
   background: #000000;
-  margin: 16px auto 0 auto;
+  margin: 36px auto 0 auto;
   z-index: 6;
-  will-change: transform, width, height, border-radius;
 }
 
-.scroll-expand-card img {
+.hero-standard-card img,
+.hero-standard-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  will-change: transform;
 }
 
 .expand-card-overlay {
@@ -725,23 +712,21 @@ p.lead-text {
   color: #ffffff;
 }
 
-/* Metric Strip */
+/* Metric Strip (Always Visible, Clean High-End Grid) */
 .metrics-strip {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  max-width: 1040px;
-  margin: 16px auto 0 auto;
+  gap: 18px;
+  max-width: 980px;
+  margin: 24px auto 0 auto;
   position: relative;
   z-index: 6;
   width: 100%;
-  opacity: 0;
-  transform: translateY(20px);
-  will-change: opacity, transform;
+  opacity: 1;
 }
 
 .metric-card {
-  padding: 18px 20px;
+  padding: 20px 22px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
@@ -749,6 +734,12 @@ p.lead-text {
   -webkit-backdrop-filter: blur(10px);
   color: #ffffff;
   text-align: left;
+  transition: var(--transition-fast);
+}
+
+.metric-card:hover {
+  border-color: rgba(197, 160, 89, 0.35);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .metric-number {
@@ -1777,14 +1768,13 @@ p.lead-text {
   .mobile-nav-links a { font-size: 1.15rem; }
 
   /* Hero Section on Mobile */
-  .scroll-hero-container { height: 155vh; }
-  .hero-interactive-stage { padding: 66px 14px 14px 14px; }
+  .hero-standard-section { padding: 90px 0 45px 0; }
   .hero-cta-cluster { gap: 8px; }
   .hero-cta-cluster .btn { padding: 8px 16px; font-size: 0.82rem; }
-  .scroll-expand-card {
-    width: clamp(240px, 78vw, 320px);
-    height: clamp(130px, 20vh, 170px);
-    margin: 10px auto 0 auto;
+  .hero-standard-card {
+    width: 100%;
+    aspect-ratio: 16 / 9.5;
+    margin: 20px auto 0 auto;
     border-radius: 14px;
   }
   .expand-card-overlay { padding: 14px 16px; }
@@ -1793,10 +1783,9 @@ p.lead-text {
   .metrics-strip {
     grid-template-columns: 1fr;
     gap: 8px;
-    max-width: 320px;
-    margin-top: 10px;
+    margin-top: 14px;
   }
-  .metric-card { padding: 10px 14px; border-radius: 12px; }
+  .metric-card { padding: 12px 14px; border-radius: 12px; }
   .metric-number { font-size: 1.4rem; margin-bottom: 2px; }
   .metric-label { font-size: 0.78rem; margin-bottom: 0; }
   .metric-desc { display: none; }
@@ -1895,6 +1884,6 @@ p.lead-text {
   .nav-inner { height: 58px; }
   .pqrs-navbar { height: 58px; }
   .mobile-nav-drawer { top: 58px; height: calc(100vh - 58px); height: calc(100dvh - 58px); }
-  .hero-interactive-stage { padding: 60px 10px 10px 10px; }
-  .scroll-expand-card { width: 92vw; }
+  .hero-standard-section { padding: 80px 0 35px 0; }
+  
 }
