@@ -140,7 +140,7 @@
         </div>
       </div>
 
-      <!-- Metric Strip -->
+      <!-- Metric Strip (3 Clean Blocks, Removed 1-on-1 Mentors Block) -->
       <div class="metrics-strip" id="hero-metrics-strip">
         <div class="metric-card">
           <div class="metric-number">100<span>%</span></div>
@@ -180,7 +180,7 @@
 
       <div class="agitation-cards-grid">
         
-        <!-- Card 1: Crimson Warm Tint -->
+        <!-- Card 1: Crimson Warm Tint (Career Stagnation & Delayed Growth) -->
         <div class="agitation-card-item agitation-card-1">
           <div class="agitation-card-img-wrap">
             <img src="assets/cost_career.jpg" alt="Career Stagnation and Research Delay" class="agitation-card-img">
@@ -192,7 +192,7 @@
           </p>
         </div>
 
-        <!-- Card 2: Purple Royal Tint -->
+        <!-- Card 2: Purple Royal Tint (Mental Exhaustion & Personal Toll) -->
         <div class="agitation-card-item agitation-card-2">
           <div class="agitation-card-img-wrap">
             <img src="assets/cost_exhaustion.jpg" alt="Doctoral Scholar Late-Night Research Overwhelmed" class="agitation-card-img">
@@ -204,7 +204,7 @@
           </p>
         </div>
 
-        <!-- Card 3: Amber Luxury Tint -->
+        <!-- Card 3: Amber Luxury Tint (Cumulative Time & Opportunity Cost) -->
         <div class="agitation-card-item agitation-card-3">
           <div class="agitation-card-img-wrap">
             <img src="assets/cost_time.jpg" alt="Statistical Data and Research Timeline Cost" class="agitation-card-img">
@@ -641,16 +641,115 @@
         </p>
       </div>
 
+      <script>
+      window.pqrsWizardState = {
+        discipline: "",
+        bottleneck: "",
+        timeline: ""
+      };
+
+      window.selectWizardOption = function(step, val, btn, e) {
+        if (e && typeof e.preventDefault === 'function') e.preventDefault();
+        var s = parseInt(step, 10) || 1;
+        var pane = document.getElementById('step-' + s);
+        if (pane) {
+          var btns = pane.querySelectorAll('.wizard-opt-btn');
+          for (var i = 0; i < btns.length; i++) {
+            btns[i].classList.remove('selected');
+          }
+        }
+        if (btn) {
+          btn.classList.add('selected');
+        }
+
+        window.pqrsWizardState = window.pqrsWizardState || {};
+        if (s === 1) {
+          window.pqrsWizardState.discipline = val;
+          var nBtn1 = document.getElementById('btn-step-1');
+          if (nBtn1) { nBtn1.classList.add('btn-ready'); }
+          setTimeout(function() { window.goToWizardStep(2); }, 160);
+        } else if (s === 2) {
+          window.pqrsWizardState.bottleneck = val;
+          var nBtn2 = document.getElementById('btn-step-2');
+          if (nBtn2) { nBtn2.classList.add('btn-ready'); }
+          setTimeout(function() { window.goToWizardStep(3); }, 160);
+        } else if (s === 3) {
+          window.pqrsWizardState.timeline = val;
+          var nBtn3 = document.getElementById('btn-step-3');
+          if (nBtn3) { nBtn3.classList.add('btn-ready'); }
+          setTimeout(function() { window.goToWizardStep(4); }, 160);
+        }
+      };
+
+      window.goToWizardStep = function(step, e) {
+        if (e && typeof e.preventDefault === 'function') e.preventDefault();
+        var target = parseInt(step, 10) || 1;
+        for (var i = 1; i <= 4; i++) {
+          var p = document.getElementById('step-' + i);
+          if (p) {
+            if (i === target) {
+              p.style.display = 'block';
+              p.style.visibility = 'visible';
+              p.style.opacity = '1';
+              p.classList.add('active');
+            } else {
+              p.style.display = 'none';
+              p.style.visibility = 'hidden';
+              p.style.opacity = '0';
+              p.classList.remove('active');
+            }
+          }
+          var node = document.getElementById('node-' + i);
+          if (node) {
+            node.classList.remove('active', 'completed');
+            if (i < target) node.classList.add('completed');
+            else if (i === target) node.classList.add('active');
+          }
+        }
+        var pb = document.getElementById('wizard-progress-bar');
+        if (pb) {
+          var pmap = { 1: '25%', 2: '50%', 3: '75%', 4: '100%' };
+          pb.style.width = pmap[target] || '25%';
+        }
+        if (target === 4) {
+          var state = window.pqrsWizardState || {};
+          var d = state.discipline || 'Management & Commerce';
+          var b = state.bottleneck || 'Full Thesis Writing';
+          var t = state.timeline || 'Standard: 3-4 Months';
+          var elD = document.getElementById('summary-discipline');
+          var elB = document.getElementById('summary-bottleneck');
+          var elT = document.getElementById('summary-timeline');
+          if (elD) elD.textContent = d;
+          if (elB) elB.textContent = b;
+          if (elT) elT.textContent = t;
+          var msg = '*PQRS RESEARCH CONSULTATION*\n----------------------------------------\n🎓 *Academic Field:* ' + d + '\n🎯 *Requirement:* ' + b + '\n⏳ *Timeline:* ' + t + '\n----------------------------------------\n_Hi PQRS team, please review my research requirement and connect me with a mentor._';
+          var wa = document.getElementById('whatsapp-wizard-link');
+          if (wa) wa.href = 'https://wa.me/917799956799?text=' + encodeURIComponent(msg);
+        }
+      };
+
+      window.generateFinalRoadmap = function(e) { window.goToWizardStep(4, e); };
+      window.resetWizard = function(e) {
+        if (e && typeof e.preventDefault === 'function') e.preventDefault();
+        window.pqrsWizardState = { discipline: '', bottleneck: '', timeline: '' };
+        var allBtns = document.querySelectorAll('.wizard-opt-btn');
+        for (var i = 0; i < allBtns.length; i++) {
+          allBtns[i].classList.remove('selected');
+        }
+        window.goToWizardStep(1);
+      };
+      </script>
+
       <div class="wizard-container">
         
         <!-- Track Nodes (Clickable Stepper) -->
         <div class="wizard-progress-track">
           <div class="wizard-progress-line"></div>
-          <div class="wizard-progress-active" id="wizard-progress-bar"></div>
+          <div class="wizard-progress-active" id="wizard-progress-bar" style="width: 25%;"></div>
           <button type="button" class="wizard-node active" id="node-1" data-action="wizard-step" data-target-step="1" onclick="goToWizardStep(1, event)" title="Step 1: Academic Field">1</button>
           <button type="button" class="wizard-node" id="node-2" data-action="wizard-step" data-target-step="2" onclick="goToWizardStep(2, event)" title="Step 2: Service Need">2</button>
           <button type="button" class="wizard-node" id="node-3" data-action="wizard-step" data-target-step="3" onclick="goToWizardStep(3, event)" title="Step 3: Timeline">3</button>
-          <button type="button" class="wizard-node" id="node-4" data-action="wizard-step" data-target-step="4" onclick="generateFinalRoadmap(event)" title="Step 4: Summary & WhatsApp">✓</button>
+          <button type="button" class="wizard-node" id="node-4" data-action="wizard-step" data-target-step="4" onclick="goToWizardStep(4, event)" title="Step 4: Summary & WhatsApp">✓</button>
         </div>
 
         <!-- Step 1: Academic Discipline -->
@@ -659,7 +758,7 @@
           <p style="font-size: 0.9rem; color: var(--text-dark-secondary);">Choose your broad discipline to match with the right subject mentor:</p>
           
           <div class="wizard-options-grid">
-            <button type="button" class="wizard-opt-btn selected" data-action="wizard-opt" data-step="1" data-value="Management & Commerce" onclick="selectWizardOption(1, 'Management & Commerce', this, event)">
+            <button type="button" class="wizard-opt-btn" data-action="wizard-opt" data-step="1" data-value="Management & Commerce" onclick="selectWizardOption(1, 'Management & Commerce', this, event)">
               <span>Management & Commerce</span>
               <span>→</span>
             </button>
@@ -701,9 +800,9 @@
               <span>SPSS / R Data Analysis</span>
               <span>→</span>
             </button>
-            <button type="button" class="wizard-opt-btn selected" data-action="wizard-opt" data-step="2" data-value="Full Thesis Writing" onclick="selectWizardOption(2, 'Full Thesis Writing', this, event)">
+            <button type="button" class="wizard-opt-btn" data-action="wizard-opt" data-step="2" data-value="Full Thesis Writing" onclick="selectWizardOption(2, 'Full Thesis Writing', this, event)">
               <span>Thesis Writing & Formatting</span>
-              <span>★ Popular</span>
+              <span>→</span>
             </button>
             <button type="button" class="wizard-opt-btn" data-action="wizard-opt" data-step="2" data-value="Plagiarism & Turnitin Check" onclick="selectWizardOption(2, 'Plagiarism & Turnitin Check', this, event)">
               <span>Plagiarism & Turnitin Report</span>
@@ -731,7 +830,7 @@
               <span>Urgent (1–2 Months)</span>
               <span>⚡ Fast</span>
             </button>
-            <button type="button" class="wizard-opt-btn selected" data-action="wizard-opt" data-step="3" data-value="Standard: 3-4 Months" onclick="selectWizardOption(3, 'Standard: 3-4 Months', this, event)">
+            <button type="button" class="wizard-opt-btn" data-action="wizard-opt" data-step="3" data-value="Standard: 3-4 Months" onclick="selectWizardOption(3, 'Standard: 3-4 Months', this, event)">
               <span>Standard (3–4 Months)</span>
               <span>★ Popular</span>
             </button>
@@ -747,7 +846,7 @@
 
           <div class="wizard-nav-row">
             <button type="button" class="btn btn-outline" data-action="wizard-step" data-target-step="2" onclick="goToWizardStep(2, event)">← Back to Step 2</button>
-            <button type="button" class="btn btn-primary btn-ready" id="btn-step-3" data-action="wizard-step" data-target-step="4" onclick="generateFinalRoadmap(event)">Build My Plan →</button>
+            <button type="button" class="btn btn-primary btn-ready" id="btn-step-3" data-action="wizard-step" data-target-step="4" onclick="goToWizardStep(4, event)">Build My Plan →</button>
           </div>
         </div>
 
@@ -762,21 +861,21 @@
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.9rem;">
               <span style="color: var(--text-dark-tertiary);">Academic Field:</span>
               <div style="display: flex; align-items: center; gap: 8px;">
-                <strong id="summary-discipline" style="color: var(--navy-deep);">Management & Commerce</strong>
+                <strong id="summary-discipline" style="color: var(--navy-deep);">-</strong>
                 <button type="button" onclick="goToWizardStep(1, event)" style="background: none; border: none; color: var(--gold-dark); font-size: 0.8rem; font-weight: 700; cursor: pointer; text-decoration: underline;">Edit</button>
               </div>
             </div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.9rem;">
               <span style="color: var(--text-dark-tertiary);">Requirement:</span>
               <div style="display: flex; align-items: center; gap: 8px;">
-                <strong id="summary-bottleneck" style="color: var(--navy-deep);">Full Thesis Writing</strong>
+                <strong id="summary-bottleneck" style="color: var(--navy-deep);">-</strong>
                 <button type="button" onclick="goToWizardStep(2, event)" style="background: none; border: none; color: var(--gold-dark); font-size: 0.8rem; font-weight: 700; cursor: pointer; text-decoration: underline;">Edit</button>
               </div>
             </div>
             <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem;">
               <span style="color: var(--text-dark-tertiary);">Target Timeline:</span>
               <div style="display: flex; align-items: center; gap: 8px;">
-                <strong id="summary-timeline" style="color: var(--navy-deep);">Standard (3–4 Months)</strong>
+                <strong id="summary-timeline" style="color: var(--navy-deep);">-</strong>
                 <button type="button" onclick="goToWizardStep(3, event)" style="background: none; border: none; color: var(--gold-dark); font-size: 0.8rem; font-weight: 700; cursor: pointer; text-decoration: underline;">Edit</button>
               </div>
             </div>
